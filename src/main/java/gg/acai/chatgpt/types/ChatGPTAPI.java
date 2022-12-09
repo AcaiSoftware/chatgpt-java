@@ -11,11 +11,8 @@ import gg.acai.chatgpt.ChatGPT;
 import gg.acai.chatgpt.Conversation;
 import gg.acai.chatgpt.entities.AuthSessionEntity;
 import kong.unirest.Config;
-import kong.unirest.HttpResponse;
-import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 
-import java.util.concurrent.CompletionException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -72,5 +69,10 @@ public class ChatGPTAPI implements ChatGPT {
             this.accessTokenCache.set("accessToken", accessToken);
             return accessToken;
         });
+    }
+
+    @Override
+    public String getAccessToken() {
+        return this.accessTokenCache.get("accessToken");
     }
 }

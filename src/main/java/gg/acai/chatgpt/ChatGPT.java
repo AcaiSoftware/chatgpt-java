@@ -22,4 +22,6 @@ public interface ChatGPT {
 
     AsyncPlaceholder<String> refreshAccessToken();
 
+    String getAccessToken();
+
 }
