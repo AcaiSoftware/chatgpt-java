@@ -1,6 +1,7 @@
 package gg.acai.chatgpt;
 
 import gg.acai.acava.Requisites;
+import gg.acai.chatgpt.codec.JacksonEncoder;
 import gg.acai.chatgpt.types.ChatGPTAPI;
 import kong.unirest.Config;
 import kong.unirest.Unirest;
@@ -34,17 +35,7 @@ public class ChatGPTBuilder {
     private void doBuildProcedure() {
         Requisites.requireNonNull(sessionToken, "Session token cannot be null!");
         this.config = Requisites.applyIfNull(this.config, Unirest.config())
-                .setObjectMapper(new JacksonObjectMapper() {
-                    @Override
-                    public <T> T readValue(String value, Class<T> valueType) {
-                        return super.readValue(value, valueType);
-                    }
-
-                    @Override
-                    public String writeValue(Object value) {
-                        return super.writeValue(value);
-                    }
-                })
+                .setObjectMapper(new JacksonEncoder())
                 .setDefaultHeader("Content-Type", "application/json")
                 .setDefaultHeader("Accept", "application/json")
                 .setDefaultHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36");

@@ -3,6 +3,7 @@ package gg.acai.chatgpt;
 import gg.acai.acava.scheduler.AsyncPlaceholder;
 import gg.acai.acava.scheduler.Schedulers;
 import gg.acai.chatgpt.request.ChatGPTRequest;
+import gg.acai.chatgpt.types.ChatGPTAPI;
 import gg.acai.chatgpt.types.StandardContent;
 import gg.acai.chatgpt.types.StandardMessage;
 import kong.unirest.HttpResponse;
@@ -29,6 +30,8 @@ public class AbstractConversation implements Conversation {
                         .setContentType("text")
                         .setParts(list)
                         .build())
+                .setId(UUID.randomUUID().toString())
+                .setRole("user")
                 .build();
 
         ChatGPTRequest request = ChatGPTRequest.newBuilder()
@@ -36,9 +39,11 @@ public class AbstractConversation implements Conversation {
                 .setAction("next")
                 .setParentMessageId(UUID.randomUUID().toString())
                 .setModel("text-davinci-002-render")
+
                 .build();
 
         HttpResponse<String> httpResponse = Unirest.post(APIUrls.CONVERSATION_URL.getUrl())
+                .header("Authorization", "Bearer " + ChatGPTAPI.getInstance().getAccessToken())
                 .body(request)
                 .asString();
 
