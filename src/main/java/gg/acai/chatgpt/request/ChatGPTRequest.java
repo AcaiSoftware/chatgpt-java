@@ -115,6 +115,10 @@ public class ChatGPTRequest {
         }
 
         public ChatGPTRequest build() {
+            if (this.messages == null || this.messages.isEmpty()) {
+                this.messages = new ArrayList<>();
+                this.messages.add(this.message);
+            }
             return new ChatGPTRequest(this);
         }
     }
