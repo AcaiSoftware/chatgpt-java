@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import gg.acai.chatgpt.Message;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -66,6 +68,12 @@ public class StandardChatGPTRequest implements ChatGPTRequest {
             return this;
         }
 
+        public RequestBuilder setMessages(Message... messages) {
+            if (this.messages == null) this.messages = new ArrayList<>();
+            this.messages.addAll(Arrays.asList(messages));
+            return this;
+        }
+
         public RequestBuilder setParentMessageId(String parent_message_id) {
             this.parent_message_id = parent_message_id;
             return this;
@@ -76,7 +84,7 @@ public class StandardChatGPTRequest implements ChatGPTRequest {
             return this;
         }
 
-        public StandardChatGPTRequest build() {
+        public ChatGPTRequest build() {
             return new StandardChatGPTRequest(this);
         }
     }
