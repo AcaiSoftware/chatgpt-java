@@ -39,6 +39,11 @@ public class ChatGPTBuilder {
                     public <T> T readValue(String value, Class<T> valueType) {
                         return super.readValue(value, valueType);
                     }
+
+                    @Override
+                    public String writeValue(Object value) {
+                        return super.writeValue(value);
+                    }
                 })
                 .setDefaultHeader("Content-Type", "application/json")
                 .setDefaultHeader("Accept", "application/json")
