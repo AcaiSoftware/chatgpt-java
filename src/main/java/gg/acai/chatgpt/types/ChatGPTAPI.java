@@ -1,6 +1,5 @@
 package gg.acai.chatgpt.types;
 
-import com.google.gson.JsonArray;
 import gg.acai.acava.cache.CacheDuplex;
 import gg.acai.acava.cache.CacheExpire;
 import gg.acai.acava.scheduler.AsyncPlaceholder;
@@ -10,11 +9,10 @@ import gg.acai.chatgpt.AbstractConversation;
 import gg.acai.chatgpt.ChatGPT;
 import gg.acai.chatgpt.Conversation;
 import kong.unirest.Config;
-import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -27,14 +25,14 @@ public class ChatGPTAPI implements ChatGPT {
     private static ChatGPTAPI instance;
     private final String sessionToken;
     private final Config config;
-    private final CacheDuplex<String, String> accessTokenCache = new CacheExpire<>(Schedulers.async().createTask(), TimeUnit.SECONDS, 60);
-
+    private final CacheDuplex<String, String> accessTokenCache;
 
     public ChatGPTAPI(String sessionToken, Config config) {
         instance = this;
 
         this.sessionToken = sessionToken;
         this.config = config;
+        this.accessTokenCache = new CacheExpire<>(Schedulers.async().createTask(), TimeUnit.SECONDS, 60);
     }
 
     @Override
@@ -67,15 +65,15 @@ public class ChatGPTAPI implements ChatGPT {
             }
         });
 
-        return future.whenComplete(res -> {
-            String accessToken = res.getAccessToken();
+        future.whenComplete(res -> {
+            String accessToken = "access_token";// res.getAccessToken();
             if (accessToken == null) {
-                throw new CompletionException(new Exception("Unauthorized"));
+                throw new RuntimeException("Unauthorized");
             }
 
-            String error = res.getError();
+            String error = ""; //res.getError();
             if (error != null) {
-                if ("RefreshAccessTokenError".equals(error)) {
+                if (error.equals("RefreshAccessTokenError")) {
                     throw new CompletionException(new Exception("session token may have expired"));
                 } else {
                     throw new CompletionException(new Exception(error));
@@ -83,7 +81,7 @@ public class ChatGPTAPI implements ChatGPT {
             }
 
             this.accessTokenCache.set("accessToken", accessToken);
-            return accessToken;
         });
+        return null; // return access token here
     }
 }
