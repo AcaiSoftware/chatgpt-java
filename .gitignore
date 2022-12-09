@@ -11,6 +11,8 @@ target/
 *.iws
 *.iml
 *.ipr
+/.idea/
+Test.java
 
 ### Eclipse ###
 .apt_generated
@@ -36,4 +38,4 @@ build/
 
 ### Mac OS ###
 .DS_Store
-/.idea/
+
