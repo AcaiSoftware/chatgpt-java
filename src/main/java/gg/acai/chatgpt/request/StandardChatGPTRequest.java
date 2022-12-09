@@ -20,7 +20,7 @@ public class StandardChatGPTRequest implements ChatGPTRequest {
         return new RequestBuilder();
     }
 
-    private StandardChatGPTRequest(RequestBuilder builder) {
+    public StandardChatGPTRequest(RequestBuilder builder) {
         this.action = builder.action;
         this.messages = builder.messages;
         this.parent_message_id = builder.parent_message_id;

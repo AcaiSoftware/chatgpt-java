@@ -12,6 +12,10 @@ import java.util.List;
  */
 public interface ChatGPTRequest extends Request {
 
+    static StandardChatGPTRequest.RequestBuilder newBuilder() {
+        return new StandardChatGPTRequest.RequestBuilder();
+    }
+
     String getAction();
 
     List<Message> getMessages();
