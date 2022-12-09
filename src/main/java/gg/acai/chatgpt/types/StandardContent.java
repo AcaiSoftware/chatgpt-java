@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import gg.acai.chatgpt.Content;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -43,6 +45,12 @@ public final class StandardContent implements Content {
 
         public ContentBuilder setParts(List<String> parts) {
             this.parts = parts;
+            return this;
+        }
+
+        public ContentBuilder setParts(String... parts) {
+            if (this.parts == null) this.parts = new ArrayList<>();
+            this.parts.addAll(Arrays.asList(parts));
             return this;
         }
 
