@@ -14,6 +14,8 @@ public class ChatGPT implements Conversation {
 
     private static ChatGPT instance;
     private final String sessionToken;
+    private final String apiUrl = "https://chat.openai.com/backend-api";
+    private final String conversationApiUrl = apiUrl + "/conversation";
 
     public ChatGPT(String sessionToken) {
         instance = this;
