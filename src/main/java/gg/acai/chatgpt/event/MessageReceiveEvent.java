@@ -9,16 +9,4 @@ import gg.acai.chatgpt.Response;
  * @author Clouke
  * @since 09.12.2022 22:13
  */
-public class MessageReceiveEvent implements Event {
-
-    private final Response response;
-
-    public MessageReceiveEvent(Response response) {
-        this.response = response;
-    }
-
-    public Response getResponse() {
-        return this.response;
-    }
-
-}
+public record MessageReceiveEvent(Response response) implements Event {}
