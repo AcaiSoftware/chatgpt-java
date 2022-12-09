@@ -6,6 +6,7 @@ import gg.acai.chatgpt.request.ChatGPTRequest;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -43,8 +44,7 @@ public class AbstractConversation implements Conversation {
 
         String body = httpResponse.getBody();
         if (body.contains("DONE")) {
-            System.out.println("We found it :) lastMessage=" + lastMessage);
-            System.out.println("Now we just need to parse the response and return it");
+
         } else {
             this.lastMessage = body;
         }
@@ -61,5 +61,10 @@ public class AbstractConversation implements Conversation {
     @Override
     public AsyncPlaceholder<Response> sendMessageAsync(ChatGPTRequest request) {
         return Schedulers.supplyAsync(() -> sendMessage(request));
+    }
+
+    @Override
+    public Optional<Response> getFullResponse() {
+        return Optional.empty();
     }
 }

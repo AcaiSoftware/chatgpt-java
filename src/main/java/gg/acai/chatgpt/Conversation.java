@@ -3,6 +3,8 @@ package gg.acai.chatgpt;
 import gg.acai.acava.scheduler.AsyncPlaceholder;
 import gg.acai.chatgpt.request.ChatGPTRequest;
 
+import java.util.Optional;
+
 /**
  * © Acai Software - All Rights Reserved
  *
@@ -18,5 +20,7 @@ public interface Conversation {
     AsyncPlaceholder<Response> sendMessageAsync(String... messages);
 
     AsyncPlaceholder<Response> sendMessageAsync(ChatGPTRequest request);
+
+    Optional<Response> getFullResponse();
 
 }
