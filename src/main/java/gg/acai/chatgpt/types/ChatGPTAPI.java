@@ -8,6 +8,7 @@ import gg.acai.chatgpt.APIUrls;
 import gg.acai.chatgpt.AbstractConversation;
 import gg.acai.chatgpt.ChatGPT;
 import gg.acai.chatgpt.Conversation;
+import gg.acai.chatgpt.entities.AuthSessionEntity;
 import kong.unirest.Config;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
@@ -54,34 +55,26 @@ public class ChatGPTAPI implements ChatGPT {
             return Schedulers.supplyAsync(() -> cachedAccessToken);
         }
 
-        AsyncPlaceholder<JsonNode> future = Schedulers.supplyAsync(() -> {
+        AsyncPlaceholder<AuthSessionEntity> promise = Schedulers.supplyAsync(() -> {
             try {
                 return Unirest.post(APIUrls.REFRESH_TOKEN_URL.getUrl())
                         .cookie("__Secure-next-auth.session-token", this.sessionToken)
-                        .asJson()
+                        .asObject(AuthSessionEntity.class)
                         .getBody();
+
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         });
 
-        future.whenComplete(res -> {
-            String accessToken = "access_token";// res.getAccessToken();
+        promise.whenComplete(res -> {
+            String accessToken = res.getAccessToken();
             if (accessToken == null) {
                 throw new RuntimeException("Unauthorized");
             }
 
-            String error = ""; //res.getError();
-            if (error != null) {
-                if (error.equals("RefreshAccessTokenError")) {
-                    throw new CompletionException(new Exception("session token may have expired"));
-                } else {
-                    throw new CompletionException(new Exception(error));
-                }
-            }
-
             this.accessTokenCache.set("accessToken", accessToken);
         });
-        return null; // return access token here
+        return Schedulers.supplyAsync(() -> promise.get().getAccessToken());
     }
 }

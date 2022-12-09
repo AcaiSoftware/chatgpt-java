@@ -9,5 +9,18 @@ package gg.acai.chatgpt.entities;
 public class AuthSessionEntity {
 
     private UserEntity user;
+    private String expires;
+    private String accessToken;
 
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public String getExpires() {
+        return expires;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
 }

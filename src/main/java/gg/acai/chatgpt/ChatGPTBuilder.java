@@ -4,6 +4,7 @@ import gg.acai.acava.Requisites;
 import gg.acai.chatgpt.types.ChatGPTAPI;
 import kong.unirest.Config;
 import kong.unirest.Unirest;
+import kong.unirest.jackson.JacksonObjectMapper;
 
 /**
  * © Acai Software - All Rights Reserved
@@ -33,6 +34,7 @@ public class ChatGPTBuilder {
     private void doBuildProcedure() {
         Requisites.requireNonNull(sessionToken, "Session token cannot be null!");
         this.config = Requisites.applyIfNull(this.config, Unirest.config())
+                .setObjectMapper(new JacksonObjectMapper())
                 .setDefaultHeader("Content-Type", "application/json")
                 .setDefaultHeader("Accept", "application/json")
                 .setDefaultHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36");
