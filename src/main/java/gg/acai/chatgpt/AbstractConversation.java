@@ -22,6 +22,15 @@ public class AbstractConversation implements Conversation {
     }
 
     @Override
+    public Response sendMessage(String... messages) {
+        ChatGPTRequest request = ChatGPTRequest.newBuilder()
+                .setParts(messages)
+                .build();
+
+        return this.sendMessage(request);
+    }
+
+    @Override
     public Response sendMessage(ChatGPTRequest request) {
         request.setConversationId(this.uuid);
 
@@ -31,6 +40,11 @@ public class AbstractConversation implements Conversation {
                 .asString();
 
         return httpResponse::getBody;
+    }
+
+    @Override
+    public AsyncPlaceholder<Response> sendMessageAsync(String... messages) {
+        return Schedulers.supplyAsync(() -> this.sendMessage(messages));
     }
 
     @Override

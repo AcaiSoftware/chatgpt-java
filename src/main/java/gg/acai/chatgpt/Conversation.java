@@ -11,7 +11,11 @@ import gg.acai.chatgpt.request.ChatGPTRequest;
  */
 public interface Conversation {
 
+    Response sendMessage(String... messages);
+
     Response sendMessage(ChatGPTRequest request);
+
+    AsyncPlaceholder<Response> sendMessageAsync(String... messages);
 
     AsyncPlaceholder<Response> sendMessageAsync(ChatGPTRequest request);
 
