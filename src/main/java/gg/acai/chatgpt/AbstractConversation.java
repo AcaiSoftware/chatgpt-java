@@ -16,9 +16,11 @@ import java.util.UUID;
 public class AbstractConversation implements Conversation {
 
     private final UUID uuid;
+    private String lastMessage;
 
     public AbstractConversation(UUID uuid) {
         this.uuid = uuid;
+
     }
 
     @Override
@@ -32,14 +34,23 @@ public class AbstractConversation implements Conversation {
 
     @Override
     public Response sendMessage(ChatGPTRequest request) {
-        request.setConversationId(this.uuid);
+        request.setConversationId(uuid);
 
         HttpResponse<String> httpResponse = Unirest.post(APIUrls.CONVERSATION_URL.getUrl())
                 .header("Authorization", "Bearer " + ChatGPTAPI.getInstance().getAccessToken())
                 .body(request)
                 .asString();
 
-        return httpResponse::getBody;
+        String body = httpResponse.getBody();
+        if (body.contains("DONE")) {
+            System.out.println("We found it :) lastMessage=" + lastMessage);
+            System.out.println("Now we just need to parse the response and return it");
+        } else {
+            this.lastMessage = body;
+        }
+
+
+        return () -> body;
     }
 
     @Override
