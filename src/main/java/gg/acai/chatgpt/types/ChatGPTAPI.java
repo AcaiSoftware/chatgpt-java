@@ -56,7 +56,7 @@ public class ChatGPTAPI implements ChatGPT {
                 return cachedAccessToken;
             }
 
-            AuthSessionEntity resp = Unirest.post(APIUrls.REFRESH_TOKEN_URL.getUrl())
+            AuthSessionEntity resp = Unirest.get(APIUrls.REFRESH_TOKEN_URL.getUrl())
                     .cookie("__Secure-next-auth.session-token", this.sessionToken)
                     .asObject(AuthSessionEntity.class)
                     .getBody();
