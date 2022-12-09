@@ -65,9 +65,7 @@ public class ChatGPTAPI implements ChatGPT {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        });
-
-        promise.whenComplete(res -> {
+        }).whenComplete(res -> {
             String accessToken = res.getAccessToken();
             if (accessToken == null) {
                 throw new RuntimeException("Unauthorized");
@@ -75,6 +73,7 @@ public class ChatGPTAPI implements ChatGPT {
 
             this.accessTokenCache.set("accessToken", accessToken);
         });
+
         return Schedulers.supplyAsync(() -> promise.get().getAccessToken());
     }
 }
