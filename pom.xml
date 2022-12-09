@@ -22,21 +22,25 @@
     </repositories>
 
     <dependencies>
-        <dependency>
+
+        <dependency> <!-- Unirest -->
             <groupId>com.konghq</groupId>
             <artifactId>unirest-java</artifactId>
             <version>3.14.1</version>
         </dependency>
-        <dependency>
+
+        <dependency> <!-- Acava Common -->
             <groupId>gg.acai</groupId>
-            <artifactId>acava-http</artifactId>
+            <artifactId>acava-common</artifactId>
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
+
+        <dependency> <!-- Gson -->
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.10</version>
         </dependency>
+
     </dependencies>
 </project>
