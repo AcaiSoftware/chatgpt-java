@@ -10,6 +10,7 @@ import gg.acai.chatgpt.Message;
  * @author Clouke
  * @since 09.12.2022 22:14
  */
+@Deprecated
 public class MessageSendEvent implements Event, Cancellable {
 
     private final Message message;

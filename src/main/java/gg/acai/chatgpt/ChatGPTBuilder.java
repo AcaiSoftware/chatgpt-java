@@ -27,6 +27,7 @@ public class ChatGPTBuilder {
         return this;
     }
 
+    @Deprecated
     public ChatGPTBuilder eventBus(EventBus eventBus) {
         this.eventBus = eventBus;
         return this;
