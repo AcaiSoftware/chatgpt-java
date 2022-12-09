@@ -45,7 +45,7 @@
         <dependency> <!-- Jackson ObjectMapper -->
             <groupId>com.konghq</groupId>
             <artifactId>unirest-objectmapper-jackson</artifactId>
-            <version>3.11.09</version>
+            <version>3.14.0</version>
         </dependency>
 
     </dependencies>
