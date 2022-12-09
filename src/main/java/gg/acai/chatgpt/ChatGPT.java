@@ -1,6 +1,7 @@
 package gg.acai.chatgpt;
 
 import gg.acai.acava.annotated.Use;
+import gg.acai.acava.scheduler.AsyncPlaceholder;
 
 /**
  * © Acai Software - All Rights Reserved
@@ -18,5 +19,7 @@ public interface ChatGPT {
     Conversation createConversation();
 
     String getSessionToken();
+
+    AsyncPlaceholder<String> refreshAccessToken();
 
 }

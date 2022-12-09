@@ -49,6 +49,7 @@ public class ChatGPTAPI implements ChatGPT {
         return instance;
     }
 
+    @Override
     public AsyncPlaceholder<String> refreshAccessToken() {
         String cachedAccessToken = this.accessTokenCache.get("accessToken");
         if (cachedAccessToken != null) {
