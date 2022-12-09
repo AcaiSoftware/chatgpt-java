@@ -1,4 +1,7 @@
-package gg.acai.chatgpt;
+package gg.acai.chatgpt.types;
+
+import gg.acai.chatgpt.Content;
+import gg.acai.chatgpt.Message;
 
 /**
  * © Acai Software - All Rights Reserved
@@ -6,11 +9,12 @@ package gg.acai.chatgpt;
  * @since 08.12.2022 18:33
  */
 public class StandardMessage implements Message {
+
     private final String id;
     private final String role;
     private final Content content;
 
-    StandardMessage(MessageBuilder builder) {
+    private StandardMessage(MessageBuilder builder) {
         this.id = builder.id;
         this.role = builder.role;
         this.content = builder.content;

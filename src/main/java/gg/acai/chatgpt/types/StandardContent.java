@@ -1,4 +1,6 @@
-package gg.acai.chatgpt;
+package gg.acai.chatgpt.types;
+
+import gg.acai.chatgpt.Content;
 
 import java.util.List;
 
