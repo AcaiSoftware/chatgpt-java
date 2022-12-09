@@ -1,4 +1,6 @@
-package gg.acai.chatgpt;
+package gg.acai.chatgpt.request;
+
+import gg.acai.chatgpt.Message;
 
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
  * @author Clouke
  * @since 09/12/2022 16:35
  */
-public interface IChatGPTRequest extends Request {
+public interface ChatGPTRequest extends Request {
 
     String getAction();
 
