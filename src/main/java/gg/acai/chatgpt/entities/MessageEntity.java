@@ -1,10 +1,11 @@
-package gg.acai.chatgpt.types;
+package gg.acai.chatgpt.entities;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import gg.acai.chatgpt.Content;
 import gg.acai.chatgpt.Message;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -13,13 +14,13 @@ import java.util.UUID;
  * @since 08.12.2022 18:33
  */
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class StandardMessage implements Message {
+public class MessageEntity implements Message {
 
     private final String id;
     private final String role;
     private final Content content;
 
-    private StandardMessage(MessageBuilder builder) {
+    private MessageEntity(MessageBuilder builder) {
         this.id = builder.id;
         this.role = builder.role;
         this.content = builder.content;
@@ -43,7 +44,7 @@ public class StandardMessage implements Message {
     public static class MessageBuilder {
         private String id;
         private String role;
-        private Content content;
+        private Content content = new ContentEntity();
 
         public MessageBuilder setId(String id) {
             this.id = id;
@@ -65,8 +66,23 @@ public class StandardMessage implements Message {
             return this;
         }
 
-        public StandardMessage build() {
-            return new StandardMessage(this);
+        public MessageBuilder setContentType(String content_type) {
+            this.content.setContentType(content_type);
+            return this;
+        }
+
+        public MessageBuilder setParts(List<String> parts) {
+            this.content.setParts(parts);
+            return this;
+        }
+
+        public MessageBuilder setParts(String... parts) {
+            this.content.setParts(parts);
+            return this;
+        }
+
+        public MessageEntity build() {
+            return new MessageEntity(this);
         }
     }
 }

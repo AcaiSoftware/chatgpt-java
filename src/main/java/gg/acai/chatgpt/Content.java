@@ -1,7 +1,5 @@
 package gg.acai.chatgpt;
 
-import gg.acai.chatgpt.types.StandardContent;
-
 import java.util.List;
 
 /**
@@ -12,12 +10,15 @@ import java.util.List;
  */
 public interface Content {
 
-    static StandardContent.ContentBuilder newBuilder() {
-        return new StandardContent.ContentBuilder();
-    }
-
     String getContentType();
 
     List<String> getParts();
+
+    Content setContentType(String content_type);
+
+    Content setParts(List<String> parts);
+
+    Content setParts(String... parts);
+
 
 }

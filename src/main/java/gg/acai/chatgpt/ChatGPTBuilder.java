@@ -3,7 +3,6 @@ package gg.acai.chatgpt;
 import gg.acai.acava.Requisites;
 import gg.acai.acava.event.EventBus;
 import gg.acai.chatgpt.codec.JacksonEncoder;
-import gg.acai.chatgpt.types.ChatGPTAPI;
 import kong.unirest.Config;
 import kong.unirest.Unirest;
 

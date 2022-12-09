@@ -1,6 +1,6 @@
 package gg.acai.chatgpt;
 
-import gg.acai.chatgpt.types.StandardMessage;
+import gg.acai.chatgpt.entities.MessageEntity;
 
 /**
  * © Acai Software - All Rights Reserved
@@ -10,8 +10,8 @@ import gg.acai.chatgpt.types.StandardMessage;
  */
 public interface Message {
 
-    static StandardMessage.MessageBuilder newBuilder() {
-        return new StandardMessage.MessageBuilder();
+    static MessageEntity.MessageBuilder newBuilder() {
+        return new MessageEntity.MessageBuilder();
     }
 
     String getId();

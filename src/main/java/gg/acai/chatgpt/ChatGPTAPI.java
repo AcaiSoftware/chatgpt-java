@@ -1,10 +1,6 @@
-package gg.acai.chatgpt.types;
+package gg.acai.chatgpt;
 
 import gg.acai.acava.event.EventBus;
-import gg.acai.chatgpt.AbstractConversation;
-import gg.acai.chatgpt.ChatGPT;
-import gg.acai.chatgpt.ComplexAccessCache;
-import gg.acai.chatgpt.Conversation;
 
 import java.util.Optional;
 

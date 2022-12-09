@@ -3,7 +3,6 @@ package gg.acai.chatgpt;
 import gg.acai.acava.scheduler.AsyncPlaceholder;
 import gg.acai.acava.scheduler.Schedulers;
 import gg.acai.chatgpt.request.ChatGPTRequest;
-import gg.acai.chatgpt.types.ChatGPTAPI;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 
