@@ -16,7 +16,7 @@ import java.util.List;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public final class ContentEntity implements Content {
 
-    private String content_type;
+    private String content_type = "text";
     private List<String> parts;
 
     @Override

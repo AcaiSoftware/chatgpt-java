@@ -3,6 +3,7 @@ package gg.acai.chatgpt;
 import gg.acai.acava.event.EventBus;
 
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * © Acai Software - All Rights Reserved
@@ -26,7 +27,7 @@ public final class ChatGPTAPI implements ChatGPT {
 
     @Override
     public Conversation createConversation() {
-        return new AbstractConversation();
+        return new AbstractConversation(UUID.randomUUID());
     }
 
     @Override

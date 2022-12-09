@@ -2,6 +2,7 @@ package gg.acai.chatgpt.entities;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import gg.acai.acava.annotated.Required;
 import gg.acai.chatgpt.Content;
 import gg.acai.chatgpt.Message;
 
@@ -16,14 +17,44 @@ import java.util.UUID;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class MessageEntity implements Message {
 
-    private final String id;
-    private final String role;
-    private final Content content;
+    private String id = UUID.randomUUID().toString();
+    private String role = "user";
+    private Content content = new ContentEntity();
 
-    private MessageEntity(MessageBuilder builder) {
-        this.id = builder.id;
-        this.role = builder.role;
-        this.content = builder.content;
+    public MessageEntity setId(String id) {
+        this.id = id;
+        return this;
+    }
+
+    public MessageEntity setId(UUID uuid) {
+        this.id = uuid.toString();
+        return this;
+    }
+
+    public MessageEntity setRole(String role) {
+        this.role = role;
+        return this;
+    }
+
+    public MessageEntity setContent(Content content) {
+        this.content = content;
+        return this;
+    }
+
+    public MessageEntity setContentType(String content_type) {
+        this.content.setContentType(content_type);
+        return this;
+    }
+
+    public MessageEntity setParts(List<String> parts) {
+        this.content.setParts(parts);
+        return this;
+    }
+
+    @Required
+    public MessageEntity setParts(String... parts) {
+        this.content.setParts(parts);
+        return this;
     }
 
     @Override
@@ -41,48 +72,4 @@ public class MessageEntity implements Message {
         return content;
     }
 
-    public static class MessageBuilder {
-        private String id;
-        private String role;
-        private Content content = new ContentEntity();
-
-        public MessageBuilder setId(String id) {
-            this.id = id;
-            return this;
-        }
-
-        public MessageBuilder setId(UUID uuid) {
-            this.id = uuid.toString();
-            return this;
-        }
-
-        public MessageBuilder setRole(String role) {
-            this.role = role;
-            return this;
-        }
-
-        public MessageBuilder setContent(Content content) {
-            this.content = content;
-            return this;
-        }
-
-        public MessageBuilder setContentType(String content_type) {
-            this.content.setContentType(content_type);
-            return this;
-        }
-
-        public MessageBuilder setParts(List<String> parts) {
-            this.content.setParts(parts);
-            return this;
-        }
-
-        public MessageBuilder setParts(String... parts) {
-            this.content.setParts(parts);
-            return this;
-        }
-
-        public MessageEntity build() {
-            return new MessageEntity(this);
-        }
-    }
 }
