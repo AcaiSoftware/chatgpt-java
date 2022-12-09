@@ -1,7 +1,9 @@
 package gg.acai.chatgpt;
 
 import gg.acai.acava.annotated.Use;
-import gg.acai.acava.scheduler.AsyncPlaceholder;
+import gg.acai.acava.event.EventBus;
+
+import java.util.Optional;
 
 /**
  * © Acai Software - All Rights Reserved
@@ -20,8 +22,8 @@ public interface ChatGPT {
 
     String getSessionToken();
 
-    AsyncPlaceholder<String> refreshAccessToken();
-
     String getAccessToken();
+
+    Optional<EventBus> getEventBus();
 
 }
