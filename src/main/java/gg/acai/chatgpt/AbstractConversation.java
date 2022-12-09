@@ -13,13 +13,16 @@ import kong.unirest.Unirest;
 public class AbstractConversation implements Conversation {
 
     @Override
-    public AsyncPlaceholder<Response> sendMessage(String message) {
-        return Schedulers.supplyAsync(() -> {
-            HttpResponse<String> httpResponse = Unirest.post(APIUrls.CONVERSATION_URL.getUrl())
-                    .body("{\"message\": \"" + message + "\"}")
-                    .asString();
+    public Response sendMessage(String message) {
+        HttpResponse<String> httpResponse = Unirest.post(APIUrls.CONVERSATION_URL.getUrl())
+                .body("{\"message\": \"" + message + "\"}")
+                .asString();
 
-            return httpResponse::getBody;
-        });
+        return httpResponse::getBody;
+    }
+
+    @Override
+    public AsyncPlaceholder<Response> sendMessageAsync(String message) {
+        return Schedulers.supplyAsync(() -> sendMessage(message));
     }
 }
