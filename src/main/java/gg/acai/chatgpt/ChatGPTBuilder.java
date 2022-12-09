@@ -1,11 +1,11 @@
 package gg.acai.chatgpt;
 
 import gg.acai.acava.Requisites;
+import gg.acai.acava.event.EventBus;
 import gg.acai.chatgpt.codec.JacksonEncoder;
 import gg.acai.chatgpt.types.ChatGPTAPI;
 import kong.unirest.Config;
 import kong.unirest.Unirest;
-import kong.unirest.jackson.JacksonObjectMapper;
 
 /**
  * © Acai Software - All Rights Reserved
@@ -16,6 +16,7 @@ public class ChatGPTBuilder {
 
     private String sessionToken;
     private Config config;
+    private EventBus eventBus;
 
     public ChatGPTBuilder config(Config config) {
         this.config = config;
@@ -27,9 +28,14 @@ public class ChatGPTBuilder {
         return this;
     }
 
+    public ChatGPTBuilder eventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
+        return this;
+    }
+
     public ChatGPT build() {
         doBuildProcedure();
-        return new ChatGPTAPI(sessionToken, config);
+        return new ChatGPTAPI(sessionToken, eventBus);
     }
 
     private void doBuildProcedure() {
