@@ -4,15 +4,8 @@ import gg.acai.acava.scheduler.AsyncPlaceholder;
 import gg.acai.acava.scheduler.Schedulers;
 import gg.acai.chatgpt.request.ChatGPTRequest;
 import gg.acai.chatgpt.types.ChatGPTAPI;
-import gg.acai.chatgpt.types.StandardContent;
-import gg.acai.chatgpt.types.StandardMessage;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * © Acai Software - All Rights Reserved
@@ -22,26 +15,7 @@ import java.util.UUID;
 public class AbstractConversation implements Conversation {
 
     @Override
-    public Response sendMessage(String message) {
-        List<String> list = new ArrayList<>();
-        list.add(message);
-        Message msg = new StandardMessage.MessageBuilder()
-                .setContent(new StandardContent.ContentBuilder()
-                        .setContentType("text")
-                        .setParts(list)
-                        .build())
-                .setId(UUID.randomUUID().toString())
-                .setRole("user")
-                .build();
-
-        ChatGPTRequest request = ChatGPTRequest.newBuilder()
-                .setMessages(Collections.singletonList(msg))
-                .setAction("next")
-                .setParentMessageId(UUID.randomUUID().toString())
-                .setModel("text-davinci-002-render")
-
-                .build();
-
+    public Response sendMessage(ChatGPTRequest request) {
         HttpResponse<String> httpResponse = Unirest.post(APIUrls.CONVERSATION_URL.getUrl())
                 .header("Authorization", "Bearer " + ChatGPTAPI.getInstance().getAccessToken())
                 .body(request)
@@ -51,7 +25,7 @@ public class AbstractConversation implements Conversation {
     }
 
     @Override
-    public AsyncPlaceholder<Response> sendMessageAsync(String message) {
-        return Schedulers.supplyAsync(() -> sendMessage(message));
+    public AsyncPlaceholder<Response> sendMessageAsync(ChatGPTRequest request) {
+        return Schedulers.supplyAsync(() -> sendMessage(request));
     }
 }
