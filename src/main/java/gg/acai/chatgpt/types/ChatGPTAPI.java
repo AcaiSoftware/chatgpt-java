@@ -1,38 +1,31 @@
 package gg.acai.chatgpt.types;
 
-import gg.acai.acava.cache.CacheDuplex;
-import gg.acai.acava.cache.CacheExpire;
-import gg.acai.acava.scheduler.AsyncPlaceholder;
-import gg.acai.acava.scheduler.Scheduler;
-import gg.acai.acava.scheduler.Schedulers;
-import gg.acai.chatgpt.APIUrls;
+import gg.acai.acava.event.EventBus;
 import gg.acai.chatgpt.AbstractConversation;
 import gg.acai.chatgpt.ChatGPT;
+import gg.acai.chatgpt.ComplexAccessCache;
 import gg.acai.chatgpt.Conversation;
-import gg.acai.chatgpt.entities.AuthSessionEntity;
-import kong.unirest.Config;
-import kong.unirest.Unirest;
 
-import java.util.concurrent.TimeUnit;
+import java.util.Optional;
 
 /**
  * © Acai Software - All Rights Reserved
  * @author Clouke
  * @since 09.12.2022 17:47
  */
-public class ChatGPTAPI implements ChatGPT {
+public final class ChatGPTAPI implements ChatGPT {
 
     private static ChatGPTAPI instance;
     private final String sessionToken;
-    private final Config config;
-    private final CacheDuplex<String, String> accessTokenCache;
+    private final EventBus eventBus;
+    private final ComplexAccessCache accessTokenCache;
 
-    public ChatGPTAPI(String sessionToken, Config config) {
+    public ChatGPTAPI(String sessionToken, EventBus eventBus) {
         instance = this;
 
         this.sessionToken = sessionToken;
-        this.config = config;
-        this.accessTokenCache = new CacheExpire<>(Schedulers.async().createTask(), TimeUnit.SECONDS, 60);
+        this.eventBus = eventBus;
+        this.accessTokenCache = new ComplexAccessCache(this);
     }
 
     @Override
@@ -40,39 +33,22 @@ public class ChatGPTAPI implements ChatGPT {
         return new AbstractConversation();
     }
 
+    @Override
     public String getSessionToken() {
         return this.sessionToken;
-    }
-
-    public static ChatGPTAPI getInstance() {
-        return instance;
-    }
-
-    @Override
-    public AsyncPlaceholder<String> refreshAccessToken() {
-        return Schedulers.supplyAsync(() -> {
-            String cachedAccessToken = this.accessTokenCache.get("accessToken");
-            if (cachedAccessToken != null) {
-                return cachedAccessToken;
-            }
-
-            AuthSessionEntity resp = Unirest.get(APIUrls.REFRESH_TOKEN_URL.getUrl())
-                    .cookie("__Secure-next-auth.session-token", this.sessionToken)
-                    .asObject(AuthSessionEntity.class)
-                    .getBody();
-
-            String accessToken = resp.getAccessToken();
-            if (accessToken == null) {
-                throw new RuntimeException("Unauthorized");
-            }
-
-            this.accessTokenCache.set("accessToken", accessToken);
-            return accessToken;
-        });
     }
 
     @Override
     public String getAccessToken() {
         return this.accessTokenCache.get("accessToken");
+    }
+
+    @Override
+    public Optional<EventBus> getEventBus() {
+        return Optional.ofNullable(this.eventBus);
+    }
+
+    public static ChatGPTAPI getInstance() {
+        return instance;
     }
 }
