@@ -8,8 +8,8 @@ package gg.acai.chatgpt;
  */
 public enum APIUrls {
     API_URL("https://chat.openai.com"),
-    CONVERSATION_URL(API_URL + "/backend-api/conversation"),
-    REFRESH_TOKEN_URL(API_URL + "/api/auth/session");
+    CONVERSATION_URL(API_URL.getUrl() + "/backend-api/conversation"),
+    REFRESH_TOKEN_URL(API_URL.getUrl() + "/api/auth/session");
 
     private final String url;
 
