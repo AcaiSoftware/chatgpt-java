@@ -48,6 +48,11 @@ public final class ChatGPTAPI implements ChatGPT {
         return Optional.ofNullable(this.eventBus);
     }
 
+    @Override
+    public ComplexAccessCache getComplexAccessCache() {
+        return this.accessTokenCache;
+    }
+
     public static ChatGPTAPI getInstance() {
         return instance;
     }

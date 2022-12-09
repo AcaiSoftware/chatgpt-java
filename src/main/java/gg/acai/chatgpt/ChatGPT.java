@@ -26,4 +26,6 @@ public interface ChatGPT {
 
     Optional<EventBus> getEventBus();
 
+    ComplexAccessCache getComplexAccessCache();
+
 }
