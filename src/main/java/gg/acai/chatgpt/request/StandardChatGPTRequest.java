@@ -1,8 +1,15 @@
-package gg.acai.chatgpt;
+package gg.acai.chatgpt.request;
+
+import gg.acai.chatgpt.Message;
 
 import java.util.List;
 
-public class ChatGPTRequest implements IChatGPTRequest {
+/**
+ * © Acai Software - All Rights Reserved
+ * @author Kaiser
+ * @since 08.12.2022 18:33
+ */
+public class StandardChatGPTRequest implements ChatGPTRequest {
 
     private final String action;
     private final List<Message> messages;
@@ -13,7 +20,7 @@ public class ChatGPTRequest implements IChatGPTRequest {
         return new RequestBuilder();
     }
 
-    private ChatGPTRequest(RequestBuilder builder) {
+    private StandardChatGPTRequest(RequestBuilder builder) {
         this.action = builder.action;
         this.messages = builder.messages;
         this.parent_message_id = builder.parent_message_id;
@@ -66,8 +73,8 @@ public class ChatGPTRequest implements IChatGPTRequest {
             return this;
         }
 
-        public ChatGPTRequest build() {
-            return new ChatGPTRequest(this);
+        public StandardChatGPTRequest build() {
+            return new StandardChatGPTRequest(this);
         }
     }
 }
