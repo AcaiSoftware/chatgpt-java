@@ -11,8 +11,6 @@ import kong.unirest.jackson.JacksonObjectMapper;
  */
 public class JacksonEncoder extends JacksonObjectMapper {
 
-    private final PropertyNamingStrategies.SnakeCaseStrategy snakeCaseStrategy = new PropertyNamingStrategies.SnakeCaseStrategy();
-
     @Override
     public String writeValue(Object value) {
         return super.writeValue(value);
@@ -20,6 +18,6 @@ public class JacksonEncoder extends JacksonObjectMapper {
 
     @Override
     public <T> T readValue(String value, Class<T> valueType) {
-        return super.readValue(snakeCaseStrategy.translate(value), valueType);
+        return super.readValue(value, valueType);
     }
 }

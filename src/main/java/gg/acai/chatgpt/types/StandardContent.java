@@ -1,5 +1,7 @@
 package gg.acai.chatgpt.types;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import gg.acai.chatgpt.Content;
 
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
  * @author Kaiser
  * @since 08.12.2022 18:33
  */
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public final class StandardContent implements Content {
 
     private final String content_type;
