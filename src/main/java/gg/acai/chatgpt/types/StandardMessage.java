@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import gg.acai.chatgpt.Content;
 import gg.acai.chatgpt.Message;
 
+import java.util.UUID;
+
 /**
  * © Acai Software - All Rights Reserved
  * @author Kaiser
@@ -45,6 +47,11 @@ public class StandardMessage implements Message {
 
         public MessageBuilder setId(String id) {
             this.id = id;
+            return this;
+        }
+
+        public MessageBuilder setId(UUID uuid) {
+            this.id = uuid.toString();
             return this;
         }
 
