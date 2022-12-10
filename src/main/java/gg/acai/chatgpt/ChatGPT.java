@@ -2,6 +2,7 @@ package gg.acai.chatgpt;
 
 import gg.acai.acava.annotated.Use;
 import gg.acai.acava.event.EventBus;
+import gg.acai.chatgpt.exception.ExceptionParser;
 import okhttp3.OkHttpClient;
 
 import java.util.Optional;
@@ -30,5 +31,7 @@ public interface ChatGPT {
     ComplexAccessCache getComplexAccessCache();
 
     OkHttpClient getHttpClient();
+
+    ExceptionParser getExceptionParser();
 
 }
