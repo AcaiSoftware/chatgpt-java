@@ -7,11 +7,7 @@ import gg.acai.acava.scheduler.Schedulers;
 import gg.acai.chatgpt.exception.ExceptionParser;
 import gg.acai.chatgpt.okhttp.EventSourceHandler;
 import gg.acai.chatgpt.request.ChatGPTRequest;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
+import okhttp3.*;
 import okhttp3.sse.EventSources;
 
 import java.io.IOException;
