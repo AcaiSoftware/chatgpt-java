@@ -6,14 +6,14 @@ package gg.acai.chatgpt;
  * @author Clouke
  * @since 10.12.2022 19:44
  */
-public interface StreamResponseListener {
+public abstract class StreamResponseListener {
 
-    void onResponse(StreamResponse response);
+    public void onResponse(StreamResponse response) {}
 
-    void onFinish(StreamResponse finalResponse);
+    public void onFinish(StreamResponse finalResponse) {}
 
-    void onClose();
+    public void onClose() {}
 
-    void onFailure(Throwable throwable, boolean ignored);
+    public void onFailure(Throwable throwable, boolean ignored) {}
 
 }
