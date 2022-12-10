@@ -14,7 +14,13 @@ public class ResponseEntity {
     private String conversation_id;
     private ResponseMessageEntity message;
 
+    /**
+     * Gets the message of this response.
+     *
+     * @return The message of this response
+     */
     public ResponseMessageEntity getMessage() {
         return message;
     }
+
 }

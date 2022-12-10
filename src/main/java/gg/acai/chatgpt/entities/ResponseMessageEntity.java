@@ -21,6 +21,11 @@ public class ResponseMessageEntity {
     private String[] metadata;
     private ContentEntity content;
 
+    /**
+     * Gets the content of this response.
+     *
+     * @return The content of this response
+     */
     public ContentEntity getContent() {
         return content;
     }
