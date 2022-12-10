@@ -1,6 +1,5 @@
 package gg.acai.chatgpt;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import gg.acai.acava.cache.CacheDuplex;
 import gg.acai.acava.cache.CacheExpire;
@@ -17,8 +16,9 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
- * © Acai Software - All Rights Reserved
+ * A simple cache extension for the {@link AuthSessionEntity} class, containing the expiring cached access token.
  *
+ * © Acai Software - All Rights Reserved
  * @author Clouke
  * @since 09.12.2022 22:05
  */
@@ -34,10 +34,21 @@ public class ComplexAccessCache {
         this.sessionToken = chatgpt.getSessionToken();
     }
 
+    /**
+     * Gets the access token from the cache, if it is not expired.
+     *
+     * @param key The key to get the access token from.
+     * @return Returns the access token if it is not expired, otherwise it will return null.
+     */
     public String get(String key) {
         return this.cache.get(key);
     }
 
+    /**
+     * Refreshes the access token from the cache, if it is expired.
+     *
+     * @return Returns a {@link AsyncPlaceholder<String>} promise of the access token.
+     */
     public AsyncPlaceholder<String> refreshAccessToken() {
         return Schedulers.supplyAsync(() -> {
             String cachedAccessToken = this.cache.get("accessToken");

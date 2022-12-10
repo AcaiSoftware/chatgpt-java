@@ -8,10 +8,25 @@ package gg.acai.chatgpt;
  */
 public interface Message {
 
+    /**
+     * Gets the Identifier of the message
+     *
+     * @return Returns the identifier
+     */
     String getId();
 
+    /**
+     * Gets the role of the Message
+     *
+     * @return Returns the role
+     */
     String getRole();
 
+    /**
+     * Gets the content of the message
+     *
+     * @return Returns the content
+     */
     Content getContent();
 
 }

@@ -1,11 +1,7 @@
 package gg.acai.chatgpt;
 
-import gg.acai.acava.Requisites;
 import gg.acai.acava.event.EventBus;
-import gg.acai.chatgpt.codec.JacksonEncoder;
 import gg.acai.chatgpt.exception.ParsedExceptionEntry;
-import kong.unirest.Config;
-import kong.unirest.Unirest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,30 +15,47 @@ public class ChatGPTBuilder {
 
     private final List<ParsedExceptionEntry> exceptionAttributes = new ArrayList<>();
     private String sessionToken;
-    private Config config;
     private EventBus eventBus;
 
-    public ChatGPTBuilder config(Config config) {
-        this.config = config;
-        return this;
-    }
-
+    /**
+     * Specifies the session token of the ChatGPT API
+     *
+     * @param sessionToken The session token
+     * @return Returns the builder instance
+     */
     public ChatGPTBuilder sessionToken(String sessionToken) {
         this.sessionToken = sessionToken;
         return this;
     }
 
+    /**
+     * <p> Deprecated: Coming soon </p>
+     * Sets the event bus handler of the ChatGPT API
+     *
+     * @param eventBus The event bus
+     * @return Returns the builder instance
+     */
     @Deprecated
     public ChatGPTBuilder eventBus(EventBus eventBus) {
         this.eventBus = eventBus;
         return this;
     }
 
+    /**
+     * Registers a new {@link ParsedExceptionEntry} which handles exceptions by reading the response body
+     *
+     * @param exceptionAttribute The exception attribute
+     * @return Returns the builder instance
+     */
     public ChatGPTBuilder addExceptionAttribute(ParsedExceptionEntry exceptionAttribute) {
         this.exceptionAttributes.add(exceptionAttribute);
         return this;
     }
 
+    /**
+     * Builds the ChatGPT API
+     * @return Returns the ChatGPT API
+     */
     public ChatGPT build() {
         doBuildProcedure();
         ChatGPTAPI api = new ChatGPTAPI(this.sessionToken, this.eventBus, this.exceptionAttributes);
@@ -51,11 +64,6 @@ public class ChatGPTBuilder {
     }
 
     private void doBuildProcedure() {
-        Requisites.requireNonNull(sessionToken, "Session token cannot be null!");
-        this.config = Requisites.applyIfNull(this.config, Unirest.config())
-                .setObjectMapper(new JacksonEncoder())
-                .setDefaultHeader("Content-Type", "application/json")
-                .setDefaultHeader("Accept", "application/json")
-                .setDefaultHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36");
+        // empty
     }
 }
