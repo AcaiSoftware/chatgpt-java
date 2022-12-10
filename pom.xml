@@ -22,11 +22,16 @@
     </repositories>
 
     <dependencies>
-
         <dependency> <!-- Unirest -->
             <groupId>com.konghq</groupId>
             <artifactId>unirest-java</artifactId>
             <version>3.14.1</version>
+        </dependency>
+
+        <dependency> <!-- Jackson ObjectMapper -->
+            <groupId>com.konghq</groupId>
+            <artifactId>unirest-objectmapper-jackson</artifactId>
+            <version>3.14.0</version>
         </dependency>
 
         <dependency> <!-- Acava Common -->
@@ -42,11 +47,16 @@
             <version>2.10</version>
         </dependency>
 
-        <dependency> <!-- Jackson ObjectMapper -->
-            <groupId>com.konghq</groupId>
-            <artifactId>unirest-objectmapper-jackson</artifactId>
-            <version>3.14.0</version>
+        <dependency> <!-- OkHttp -->
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.10.0</version>
         </dependency>
 
+        <dependency> <!-- OkHttp SSE -->
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp-sse</artifactId>
+            <version>4.10.0</version>
+        </dependency>
     </dependencies>
 </project>

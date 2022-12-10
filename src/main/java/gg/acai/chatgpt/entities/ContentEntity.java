@@ -1,5 +1,6 @@
 package gg.acai.chatgpt.entities;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import gg.acai.chatgpt.Content;
@@ -25,6 +26,7 @@ public final class ContentEntity implements Content {
         return this;
     }
 
+    @JsonSetter("parts")
     @Override
     public Content setParts(List<String> parts) {
         this.parts = parts;

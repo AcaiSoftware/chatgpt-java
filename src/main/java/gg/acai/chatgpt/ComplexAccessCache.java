@@ -41,6 +41,7 @@ public class ComplexAccessCache {
                     .asObject(AuthSessionEntity.class)
                     .getBody();
 
+
             String accessToken = resp.getAccessToken();
             if (accessToken == null) {
                 throw new RuntimeException("Unauthorized");
