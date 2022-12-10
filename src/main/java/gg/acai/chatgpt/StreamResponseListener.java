@@ -10,7 +10,7 @@ public interface StreamResponseListener {
 
     void onResponse(StreamResponse response);
 
-    void onFinish();
+    void onFinish(StreamResponse finalResponse);
 
     void onClose();
 

@@ -21,6 +21,7 @@ import java.net.SocketException;
 public class EventSourceHandler extends EventSourceListener {
 
     private StreamResponseListener listener;
+    private StreamResponse lastResponse;
 
     public EventSourceHandler(StreamResponseListener listener) {
         this.listener = listener;
@@ -50,11 +51,12 @@ public class EventSourceHandler extends EventSourceListener {
             if (listener != null) {
                 listener.onResponse(resp);
             }
+            lastResponse = resp;
         } catch (JsonProcessingException e) {
             if (data.contains("[DONE]")) {
                 eventSource.cancel();
                 if (listener != null)
-                    listener.onFinish();
+                    listener.onFinish(lastResponse);
             }
         }
     }
