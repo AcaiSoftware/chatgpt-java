@@ -6,7 +6,7 @@ package gg.acai.chatgpt.exception;
  * @author Clouke
  * @since 10.12.2022 20:43
  */
-public class TokenExpiredException extends Exception {
+public class TokenExpiredException extends RuntimeException {
 
     public TokenExpiredException() {
         super("The token has expired");
