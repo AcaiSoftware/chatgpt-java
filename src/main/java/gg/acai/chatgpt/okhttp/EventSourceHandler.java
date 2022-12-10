@@ -30,9 +30,8 @@ public class EventSourceHandler extends EventSourceListener {
     public EventSourceHandler() {
     }
 
-    public EventSourceHandler setListener(StreamResponseListener listener) {
+    public void setListener(StreamResponseListener listener) {
         this.listener = listener;
-        return this;
     }
 
     @Override
