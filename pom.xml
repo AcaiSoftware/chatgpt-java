@@ -51,6 +51,14 @@
         </resources>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub AcaiSoftware Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/acaisoftware/chatgpt-java</url>
+        </repository>
+    </distributionManagement>
+
     <repositories>
         <repository>
             <id>acava</id>
