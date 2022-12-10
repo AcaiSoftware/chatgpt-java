@@ -2,6 +2,7 @@ package gg.acai.chatgpt;
 
 import gg.acai.acava.annotated.Use;
 import gg.acai.acava.event.EventBus;
+import okhttp3.OkHttpClient;
 
 import java.util.Optional;
 
@@ -27,5 +28,7 @@ public interface ChatGPT {
     Optional<EventBus> getEventBus();
 
     ComplexAccessCache getComplexAccessCache();
+
+    OkHttpClient getHttpClient();
 
 }
