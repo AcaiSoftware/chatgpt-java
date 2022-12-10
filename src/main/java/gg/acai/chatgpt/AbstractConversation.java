@@ -74,20 +74,16 @@ public class AbstractConversation implements Conversation {
         }
 
         ResponseBody body = res.body();
-        try {
-            return () -> {
-                try {
-                    Objects.requireNonNull(body, "Response body is null");
-                    String string = body.string();
-                    this.parser.read(string);
-                    return string;
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            };
-        } finally {
-            res.close();
-        }
+        return () -> {
+            try {
+                Objects.requireNonNull(body, "Response body is null");
+                String string = body.string();
+                this.parser.read(string);
+                return string;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        };
     }
 
 
