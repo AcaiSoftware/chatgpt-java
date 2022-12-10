@@ -19,11 +19,11 @@ A **Java** wrapper for the unofficial reverse-engineered [ChatGPT](https://chat.
 
 ## Usage Examples
 ### Registering ChatGPT
-All builder fields are optional except for ``sessionToken``
+All builder fields are optional except for ``sessionToken``.
 ```java
 ChatGPT chatGpt = ChatGPT.newBuilder()
   .sessionToken("token_here") // required field
-  .addExceptionAttribute(new ParsedExceptionEntry("exception keyword", Exception.class)) // adds an exception attribute
+  .addExceptionAttribute(new ParsedExceptionEntry("exception keyword", Exception.class)) // optional: adds an exception attribute
   .build(); // builds the ChatGPT client
 ```
 
@@ -38,9 +38,9 @@ The client will throw a `TokenExpiredException` if the token has expired.
 ```
 
 ### ChatGPT Conversation
-Supports both asynchronous & synchronous handling
+Supports both asynchronous & synchronous handling.
 
-Create a conversation with a promise completing the response
+Create a conversation with a promise completing the response:
 ```java
 Conversation conversation = chatGpt.createConversation();
 conversation.sendMessageAsync("Hello!")
@@ -49,7 +49,7 @@ conversation.sendMessageAsync("Hello!")
     });
 ```
 
-Create a conversation with an event stream listener
+Create a conversation with an event stream listener:
 ```java
 Conversation conversation = chatGPT.createConversation(); // creates a new conversation
 conversation.setStreamResponseListener(new StreamResponseListener() {
