@@ -15,14 +15,48 @@ import java.util.Optional;
  */
 public interface Conversation {
 
+    /**
+     * Sends a message to the conversation.
+     *
+     * @param messages The messages to send.
+     * @return Returns the response of the ChatGPT
+     */
     Response sendMessage(String... messages);
 
+    /**
+     * Sends a request to the conversation.
+     *
+     * @param request The request to send.
+     * @throws URISyntaxException If the URI is invalid.
+     * @throws JsonProcessingException If the request cannot be parsed.
+     * @return Returns the response of the ChatGPT
+     */
     Response sendMessage(ChatGPTRequest request) throws URISyntaxException, JsonProcessingException;
 
+    /**
+     * Sends a message to the conversation.
+     *
+     * @param messages The messages to send.
+     * @return Returns the response of the ChatGPT
+     */
     AsyncPlaceholder<Response> sendMessageAsync(String... messages);
 
-    AsyncPlaceholder<Response> sendMessageAsync(ChatGPTRequest request);
+    /**
+     * Sends a request to the conversation.
+     *
+     * @param request The request to send.
+     * @throws URISyntaxException If the URI is invalid.
+     * @throws JsonProcessingException If the request cannot be parsed.
+     * @return Returns the response of the ChatGPT
+     */
+    AsyncPlaceholder<Response> sendMessageAsync(ChatGPTRequest request) throws URISyntaxException, JsonProcessingException;
 
+    /**
+     * Sets the event handler for stream events.
+     *
+     * @param streamResponseListener The {@link StreamResponseListener} to set.
+     * @return Returns the conversation.
+     */
     Conversation setStreamResponseListener(StreamResponseListener streamResponseListener);
 
 }
