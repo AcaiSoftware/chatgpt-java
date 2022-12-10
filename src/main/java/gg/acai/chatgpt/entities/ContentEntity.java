@@ -10,7 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Entity for the content of a message.
+ *
  * @author Kaiser
  * @since 08.12.2022 18:33
  */

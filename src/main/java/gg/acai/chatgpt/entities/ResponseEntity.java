@@ -3,7 +3,7 @@ package gg.acai.chatgpt.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Entity for the response object.
  *
  * @author Kaiser
  * @since 10/12/2022 16:57

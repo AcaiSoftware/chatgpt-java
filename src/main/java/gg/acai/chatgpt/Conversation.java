@@ -7,7 +7,7 @@ import gg.acai.chatgpt.request.ChatGPTRequest;
 import java.net.URISyntaxException;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Interface for a conversation with the ChatGPT API.
  *
  * @author Clouke
  * @since 09.12.2022 17:58

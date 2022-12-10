@@ -5,7 +5,7 @@ import gg.acai.acava.event.Event;
 import gg.acai.chatgpt.Message;
 
 /**
- * © Acai Software - All Rights Reserved
+ * 
  *
  * @author Clouke
  * @since 09.12.2022 22:14

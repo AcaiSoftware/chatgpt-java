@@ -1,7 +1,7 @@
 package gg.acai.chatgpt.exception;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Represents an entry in the parsed exception.
  *
  * @author Clouke
  * @since 10.12.2022 20:33

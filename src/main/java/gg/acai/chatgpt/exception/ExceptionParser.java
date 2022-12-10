@@ -6,7 +6,7 @@ import gg.acai.acava.cache.CacheLiteral;
 import java.util.List;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Parser for exceptions.
  *
  * @author Clouke
  * @since 10.12.2022 20:32

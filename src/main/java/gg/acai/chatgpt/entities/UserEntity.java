@@ -3,7 +3,7 @@ package gg.acai.chatgpt.entities;
 import java.util.List;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Entity for the user object.
  *
  * @author Clouke
  * @since 09.12.2022 19:33

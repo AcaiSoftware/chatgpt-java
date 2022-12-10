@@ -4,7 +4,7 @@ import okhttp3.sse.EventSourceListener;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Handles sending events to listeners.
  *
  * @author Kaiser
  * @since 10/12/2022 16:18

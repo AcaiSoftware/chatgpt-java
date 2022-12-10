@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"gg.acai.chatgpt"},{"l":"gg.acai.chatgpt.entities"},{"l":"gg.acai.chatgpt.event"},{"l":"gg.acai.chatgpt.exception"},{"l":"gg.acai.chatgpt.okhttp"},{"l":"gg.acai.chatgpt.request"}];updateSearchResults();

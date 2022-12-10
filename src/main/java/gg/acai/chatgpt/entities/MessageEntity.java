@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Entity for the message object.
+ *
  * @author Kaiser
  * @since 08.12.2022 18:33
  */

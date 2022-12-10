@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Request object for the ChatGPT API.
+ * 
  * @author Kaiser
  * @since 08.12.2022 18:33
  */
@@ -24,6 +25,11 @@ public class ChatGPTRequest {
     private final String model;
     private String conversation_id;
 
+    /**
+     * Creates a new RequestBuilder.
+     *
+     * @return Returns a new RequestBuilder.
+     */
     public static RequestBuilder newBuilder() {
         return new RequestBuilder();
     }
@@ -81,6 +87,9 @@ public class ChatGPTRequest {
     }
 
 
+    /**
+     * Builder that creates a new {@link ChatGPTRequest} instance.
+     */
     public static class RequestBuilder {
 
         private String action = "next";

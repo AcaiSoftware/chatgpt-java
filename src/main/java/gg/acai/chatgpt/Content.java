@@ -3,7 +3,7 @@ package gg.acai.chatgpt;
 import java.util.List;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Interface for the content of a message.
  *
  * @author Clouke
  * @since 09.12.2022 17:52

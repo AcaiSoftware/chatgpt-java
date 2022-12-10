@@ -15,7 +15,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * © Acai Software - All Rights Reserved
+ * The conversation implementation which handles sending requests to the ChatGPT API.
+ * 
  * @author Clouke
  * @since 09.12.2022 18:04
  */

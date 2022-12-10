@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Builder extension for the ChatGPT interface.
+ * 
  * @author Clouke
  * @since 09.12.2022 18:20
  */
