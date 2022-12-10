@@ -35,7 +35,9 @@ public class ChatGPTBuilder {
 
     public ChatGPT build() {
         doBuildProcedure();
-        return new ChatGPTAPI(sessionToken, eventBus);
+        ChatGPTAPI api = new ChatGPTAPI(this.sessionToken, this.eventBus);
+        api.getComplexAccessCache().refreshAccessToken();
+        return api;
     }
 
     private void doBuildProcedure() {
