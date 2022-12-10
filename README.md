@@ -81,3 +81,7 @@ However, we will work to fix any issues as they may arise.
 ## Contributing
 Contributions are highly appreciated! If you feel your pull request is useful, go ahead!
 Before creating a pull request, make sure your changes works as it should and give a description on what it provides.
+
+## Authors
+[Kaiser](https://github.com/KaiserBloo)
+[Clouke](https://github.com/Clouke)
