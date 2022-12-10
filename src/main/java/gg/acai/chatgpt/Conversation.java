@@ -23,6 +23,6 @@ public interface Conversation {
 
     AsyncPlaceholder<Response> sendMessageAsync(ChatGPTRequest request);
 
-    Optional<Response> getFullResponse();
+    Conversation setStreamResponseListener(StreamResponseListener streamResponseListener);
 
 }
