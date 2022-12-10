@@ -5,7 +5,16 @@ import gg.acai.acava.scheduler.Schedulers;
 import gg.acai.chatgpt.request.ChatGPTRequest;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
+import okhttp3.*;
+import okhttp3.sse.EventSource;
+import okhttp3.sse.EventSourceListener;
+import okhttp3.sse.EventSources;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.net.Socket;
+import java.net.SocketException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -16,12 +25,23 @@ import java.util.UUID;
  */
 public class AbstractConversation implements Conversation {
 
+    private static final MediaType JSON = MediaType.get("application/json");
+    private static final Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
+            .create();
+
+    private static final Type type = new TypeToken<ChatGPTRequest>(){}.getType();
+    private static final OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .build();
+
     private final UUID uuid;
     private String lastMessage;
 
     public AbstractConversation(UUID uuid) {
         this.uuid = uuid;
-
     }
 
     @Override
