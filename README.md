@@ -12,7 +12,7 @@ A **Java** wrapper for the unofficial reverse-engineered [ChatGPT](https://chat.
 
 <dependency>
   <groupId>gg.acai</groupId>
-  <artifactId>chatgpt</artifactId>
+  <artifactId>chatgpt-java</artifactId>
   <version>1.0</version>
 </dependency>
 ```
