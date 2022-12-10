@@ -1,11 +1,13 @@
 package gg.acai.chatgpt;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import gg.acai.acava.cache.CacheDuplex;
 import gg.acai.acava.cache.CacheExpire;
 import gg.acai.acava.scheduler.AsyncPlaceholder;
 import gg.acai.acava.scheduler.Schedulers;
 import gg.acai.chatgpt.entities.AuthSessionEntity;
-import kong.unirest.Unirest;
+import okhttp3.Request;
 
 import java.util.concurrent.TimeUnit;
 
@@ -36,12 +38,23 @@ public class ComplexAccessCache {
                 return cachedAccessToken;
             }
 
-            AuthSessionEntity resp = Unirest.get(APIUrls.REFRESH_TOKEN_URL.getUrl())
-                    .cookie("__Secure-next-auth.session-token", this.sessionToken)
-                    .asObject(AuthSessionEntity.class)
-                    .getBody();
 
-            String accessToken = resp.getAccessToken();
+            ObjectMapper mapper = new ObjectMapper();
+            Request req = new okhttp3.Request.Builder()
+                    .header("Cookie", "__Secure-next-auth.session-token=" + this.sessionToken)
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36")
+                    .url(APIUrls.REFRESH_TOKEN_URL.getUrl())
+                    .get()
+                    .build();
+
+            AuthSessionEntity entity = null;
+            try {
+                entity = mapper.readValue(req.body().toString(), AuthSessionEntity.class);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+
+            String accessToken = entity.getAccessToken();
             if (accessToken == null) {
                 throw new RuntimeException("Unauthorized");
             }
