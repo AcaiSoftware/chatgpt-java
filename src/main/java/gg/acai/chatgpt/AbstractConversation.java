@@ -6,17 +6,12 @@ import gg.acai.acava.scheduler.AsyncPlaceholder;
 import gg.acai.acava.scheduler.Schedulers;
 import gg.acai.chatgpt.okhttp.EventSourceHandler;
 import gg.acai.chatgpt.request.ChatGPTRequest;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
+import okhttp3.*;
 import okhttp3.sse.EventSources;
 
 import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 /**
  * © Acai Software - All Rights Reserved
@@ -26,16 +21,13 @@ import java.util.concurrent.TimeUnit;
 public class AbstractConversation implements Conversation {
 
     private static final MediaType JSON = MediaType.get("application/json");
-    private static final OkHttpClient client = new OkHttpClient.Builder()
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .build();
 
     private final UUID uuid;
     private final EventSourceHandler handler;
+    private final OkHttpClient client;
 
-    public AbstractConversation(UUID uuid) {
+    public AbstractConversation(OkHttpClient client, UUID uuid) {
+        this.client = client;
         this.uuid = uuid;
         this.handler = new EventSourceHandler();
     }
