@@ -7,6 +7,7 @@ import gg.acai.acava.cache.CacheExpire;
 import gg.acai.acava.scheduler.AsyncPlaceholder;
 import gg.acai.acava.scheduler.Schedulers;
 import gg.acai.chatgpt.entities.AuthSessionEntity;
+import gg.acai.chatgpt.exception.TokenExpiredException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -63,8 +64,8 @@ public class ComplexAccessCache {
             AuthSessionEntity entity;
             try {
                 entity = mapper.readValue(Objects.requireNonNull(res.body()).string(), AuthSessionEntity.class);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+                throw new TokenExpiredException("The provided session token has expired.", e);
             }
 
             String accessToken = entity.getAccessToken();
