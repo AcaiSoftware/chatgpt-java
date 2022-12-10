@@ -5,7 +5,6 @@ import gg.acai.acava.scheduler.AsyncPlaceholder;
 import gg.acai.chatgpt.request.ChatGPTRequest;
 
 import java.net.URISyntaxException;
-import java.util.Optional;
 
 /**
  * © Acai Software - All Rights Reserved
