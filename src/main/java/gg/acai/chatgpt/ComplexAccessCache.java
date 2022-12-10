@@ -7,8 +7,12 @@ import gg.acai.acava.cache.CacheExpire;
 import gg.acai.acava.scheduler.AsyncPlaceholder;
 import gg.acai.acava.scheduler.Schedulers;
 import gg.acai.chatgpt.entities.AuthSessionEntity;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 
+import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -20,10 +24,12 @@ import java.util.concurrent.TimeUnit;
 public class ComplexAccessCache {
 
     private final CacheDuplex<String, String> cache;
+    private final OkHttpClient client;
     private final String sessionToken;
 
     public ComplexAccessCache(ChatGPT chatgpt) {
         this.cache = new CacheExpire<>(Schedulers.async(), TimeUnit.SECONDS, 60);
+        this.client = chatgpt.getHttpClient();
         this.sessionToken = chatgpt.getSessionToken();
     }
 
@@ -47,10 +53,17 @@ public class ComplexAccessCache {
                     .get()
                     .build();
 
-            AuthSessionEntity entity = null;
+            Response res;
             try {
-                entity = mapper.readValue(req.body().toString(), AuthSessionEntity.class);
-            } catch (JsonProcessingException e) {
+                res = client.newCall(req).execute();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            AuthSessionEntity entity;
+            try {
+                entity = mapper.readValue(Objects.requireNonNull(res.body()).string(), AuthSessionEntity.class);
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
