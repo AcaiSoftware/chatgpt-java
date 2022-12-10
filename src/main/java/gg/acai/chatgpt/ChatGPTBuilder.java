@@ -3,8 +3,12 @@ package gg.acai.chatgpt;
 import gg.acai.acava.Requisites;
 import gg.acai.acava.event.EventBus;
 import gg.acai.chatgpt.codec.JacksonEncoder;
+import gg.acai.chatgpt.exception.ParsedExceptionEntry;
 import kong.unirest.Config;
 import kong.unirest.Unirest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * © Acai Software - All Rights Reserved
@@ -13,6 +17,7 @@ import kong.unirest.Unirest;
  */
 public class ChatGPTBuilder {
 
+    private final List<ParsedExceptionEntry> exceptionAttributes = new ArrayList<>();
     private String sessionToken;
     private Config config;
     private EventBus eventBus;
@@ -33,9 +38,14 @@ public class ChatGPTBuilder {
         return this;
     }
 
+    public ChatGPTBuilder addExceptionAttribute(ParsedExceptionEntry exceptionAttribute) {
+        this.exceptionAttributes.add(exceptionAttribute);
+        return this;
+    }
+
     public ChatGPT build() {
         doBuildProcedure();
-        ChatGPTAPI api = new ChatGPTAPI(this.sessionToken, this.eventBus);
+        ChatGPTAPI api = new ChatGPTAPI(this.sessionToken, this.eventBus, this.exceptionAttributes);
         api.getComplexAccessCache().refreshAccessToken();
         return api;
     }
