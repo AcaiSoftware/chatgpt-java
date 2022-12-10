@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Request object for the ChatGPT API.
+ * 
  * @author Kaiser
  * @since 08.12.2022 18:33
  */

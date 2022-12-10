@@ -1,7 +1,7 @@
 package gg.acai.chatgpt.entities;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Entity for the authentication session.
  *
  * @author Kaiser
  * @since 09/12/2022 18:31

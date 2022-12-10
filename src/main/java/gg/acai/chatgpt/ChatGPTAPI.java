@@ -11,7 +11,8 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Main implementation of the ChatGPT interface.
+ * 
  * @author Clouke
  * @since 09.12.2022 17:47
  */

@@ -2,8 +2,7 @@ package gg.acai.chatgpt;
 
 /**
  * A response interface for {@link Conversation}
- *
- * © Acai Software - All Rights Reserved
+ * 
  * @author Clouke
  * @since 09.12.2022 17:58
  */

@@ -1,7 +1,7 @@
 package gg.acai.chatgpt;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Common API Urls for the ChatGPT API.
  *
  * @author Clouke
  * @since 09.12.2022 18:13

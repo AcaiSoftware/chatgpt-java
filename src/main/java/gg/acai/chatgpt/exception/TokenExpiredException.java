@@ -1,7 +1,7 @@
 package gg.acai.chatgpt.exception;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Thrown when the session token is expired.
  *
  * @author Clouke
  * @since 10.12.2022 20:43

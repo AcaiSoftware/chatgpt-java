@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.net.SocketException;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Handles listening to event source and calls events to its listener and returns its response.
  *
  * @author Kaiser
  * @author Clouke

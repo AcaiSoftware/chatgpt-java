@@ -8,7 +8,7 @@ import okhttp3.OkHttpClient;
 import java.util.Optional;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Main class for the ChatGPT API.
  *
  * @author Clouke
  * @since 09.12.2022 18:27

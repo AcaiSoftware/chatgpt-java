@@ -1,7 +1,7 @@
 package gg.acai.chatgpt;
 
 /**
- * © Acai Software - All Rights Reserved
+ * Interface for the message object.
  *
  * @author Clouke
  * @since 09.12.2022 17:52

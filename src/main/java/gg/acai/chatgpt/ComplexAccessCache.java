@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * A simple cache extension for the {@link AuthSessionEntity} class, containing the expiring cached access token.
  *
- * © Acai Software - All Rights Reserved
+ * 
  * @author Clouke
  * @since 09.12.2022 22:05
  */
