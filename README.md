@@ -47,21 +47,22 @@ Create a conversation with a promise completing the response:
 ```java
 Conversation conversation = chatGpt.createConversation();
 conversation.sendMessageAsync("Hello!")
-    .whenComplete((response) -> {
+    .whenComplete((response) -> { // called when the promise is completed with its response
         System.out.println("Response: " + response);
     });
 ```
 
 Create a conversation with an event stream listener:
 ```java
-Conversation conversation = chatGPT.createConversation(); // creates a new conversation
-conversation.setStreamResponseListener(new StreamResponseListener() {
+Conversation streamConversation = chatGpt.createStreamConversation(new StreamResponseListener() {
     @Override
     public void onResponse(StreamResponse response) {
-        System.out.println(response.getMessage()); // response returned by the event stream
+        System.out.println(response.getMessage()); // the response from the event stream
     }
-}).sendMessageAsync("Hello World"); // the message to send to ChatGPT
+});
+streamConversation.sendMessageAsync("Hello!"); // does not support promise callbacks
 ```
+**NOTE: A Stream Conversation does not support promise callbacks with its response**
 
 ## Documentation
 // Link to docs
