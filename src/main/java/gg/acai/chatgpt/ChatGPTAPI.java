@@ -25,13 +25,13 @@ public final class ChatGPTAPI implements ChatGPT {
     private final OkHttpClient client;
     private final ExceptionParser exceptionParser;
 
-    public ChatGPTAPI(String sessionToken, EventBus eventBus, List<ParsedExceptionEntry> entries) {
+    public ChatGPTAPI(String sessionToken, EventBus eventBus, List<ParsedExceptionEntry> entries, long connectTimeout, long readTimeout, long writeTimeout) {
         instance = this;
 
         this.client = new OkHttpClient.Builder()
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(connectTimeout, TimeUnit.SECONDS)
+                .writeTimeout(writeTimeout, TimeUnit.SECONDS)
+                .readTimeout(readTimeout, TimeUnit.SECONDS)
                 .build();
 
         this.sessionToken = sessionToken;

@@ -1,5 +1,6 @@
 package gg.acai.chatgpt;
 
+import gg.acai.acava.Requisites;
 import gg.acai.acava.event.EventBus;
 import gg.acai.chatgpt.exception.ParsedExceptionEntry;
 
@@ -17,6 +18,9 @@ public class ChatGPTBuilder {
     private final List<ParsedExceptionEntry> exceptionAttributes = new ArrayList<>();
     private String sessionToken;
     private EventBus eventBus;
+    private long readTimeout;
+    private long connectTimeout;
+    private long writeTimeout;
 
     /**
      * Specifies the session token of the ChatGPT API
@@ -54,17 +58,53 @@ public class ChatGPTBuilder {
     }
 
     /**
+     * Specifies the limited read timeout of the http client
+     *
+     * @param readTimeout The read timeout
+     * @return Returns the builder instance
+     */
+    public ChatGPTBuilder readTimeout(long readTimeout) {
+        this.readTimeout = readTimeout;
+        return this;
+    }
+
+    /**
+     * Specifies the limited connect timeout of the http client
+     *
+     * @param connectTimeout The connection timeout
+     * @return Returns the builder instance
+     */
+    public ChatGPTBuilder connectTimeout(long connectTimeout) {
+        this.connectTimeout = connectTimeout;
+        return this;
+    }
+
+    /**
+     * Specifies the limited write timeout of the http client
+     *
+     * @param writeTimeout The write timeout
+     * @return Returns the builder instance
+     */
+    public ChatGPTBuilder writeTimeout(long writeTimeout) {
+        this.writeTimeout = writeTimeout;
+        return this;
+    }
+
+    /**
      * Builds the ChatGPT API
      * @return Returns the ChatGPT API
      */
     public ChatGPT build() {
         doBuildProcedure();
-        ChatGPTAPI api = new ChatGPTAPI(this.sessionToken, this.eventBus, this.exceptionAttributes);
+        ChatGPTAPI api = new ChatGPTAPI(sessionToken, eventBus, exceptionAttributes, connectTimeout, readTimeout, writeTimeout);
         api.getComplexAccessCache().refreshAccessToken();
         return api;
     }
 
     private void doBuildProcedure() {
-        // empty
+        Requisites.requireNonNull(sessionToken, "Session token cannot be null");
+        if (connectTimeout == 0) connectTimeout = 60;
+        if (readTimeout == 0) readTimeout = 30;
+        if (writeTimeout == 0) writeTimeout = 30;
     }
 }
