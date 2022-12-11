@@ -5,17 +5,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import gg.acai.acava.scheduler.AsyncPlaceholder;
 import gg.acai.acava.scheduler.Schedulers;
 import gg.acai.chatgpt.exception.ExceptionParser;
-import gg.acai.chatgpt.okhttp.EventSourceHandler;
 import gg.acai.chatgpt.request.ChatGPTRequest;
-import okhttp3.*;
-import okhttp3.sse.EventSources;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 
 import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
 /**
- * The conversation implementation which handles sending requests to the ChatGPT API.
+ * A conversation extension which retrieves the response.
  * 
  * @author Clouke
  * @since 09.12.2022 18:04
@@ -25,14 +27,12 @@ public class AbstractConversation implements Conversation {
     private static final MediaType JSON = MediaType.get("application/json");
 
     private final UUID uuid;
-    private final EventSourceHandler handler;
     private final OkHttpClient client;
     private final ExceptionParser parser;
 
     public AbstractConversation(OkHttpClient client, UUID uuid, ExceptionParser parser) {
         this.client = client;
         this.uuid = uuid;
-        this.handler = new EventSourceHandler();
         this.parser = parser;
     }
 
@@ -65,7 +65,6 @@ public class AbstractConversation implements Conversation {
                 .post(b)
                 .build();
 
-        EventSources.createFactory(client).newEventSource(req, handler);
         okhttp3.Response res;
         try {
             res = client.newCall(req).execute();
@@ -94,12 +93,6 @@ public class AbstractConversation implements Conversation {
     @Override
     public AsyncPlaceholder<Response> sendMessageAsync(ChatGPTRequest request) {
         return Schedulers.supplyAsync(() -> sendMessage(request));
-    }
-
-    @Override
-    public Conversation setStreamResponseListener(StreamResponseListener streamResponseListener) {
-        this.handler.setListener(streamResponseListener);
-        return this;
     }
 
 }
