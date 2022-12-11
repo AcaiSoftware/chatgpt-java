@@ -24,6 +24,9 @@ All builder fields are optional except for ``sessionToken``.
 ChatGPT chatGpt = ChatGPT.newBuilder()
   .sessionToken("token_here") // required field
   .addExceptionAttribute(new ParsedExceptionEntry("exception keyword", Exception.class)) // optional: adds an exception attribute
+  .connectTimeout(60L) // optional: specify custom connection timeout limit
+  .readTimeout(30L) // optional: specify custom read timeout limit
+  .writeTimeout(30L) // optional: specify custom write timeout limit
   .build(); // builds the ChatGPT client
 ```
 
