@@ -28,9 +28,17 @@ public interface ChatGPT {
     /**
      * Creates a new conversation
      *
-     * @return Returns a new {@link Conversation}
+     * @return Returns a new {@link AbstractConversation}
      */
     Conversation createConversation();
+
+    /**
+     * Creates a new Event Stream conversation
+     *
+     * @param listener The listener for the event stream
+     * @return Returns a new {@link AbstractStreamConversation}
+     */
+    Conversation createStreamConversation(StreamResponseListener listener);
 
     /**
      * Returns the session token

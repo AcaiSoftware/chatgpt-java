@@ -50,12 +50,4 @@ public interface Conversation {
      */
     AsyncPlaceholder<Response> sendMessageAsync(ChatGPTRequest request) throws URISyntaxException, JsonProcessingException;
 
-    /**
-     * Sets the event handler for stream events.
-     *
-     * @param streamResponseListener The {@link StreamResponseListener} to set.
-     * @return Returns the conversation.
-     */
-    Conversation setStreamResponseListener(StreamResponseListener streamResponseListener);
-
 }

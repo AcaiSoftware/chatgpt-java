@@ -4,36 +4,35 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import gg.acai.acava.scheduler.AsyncPlaceholder;
 import gg.acai.acava.scheduler.Schedulers;
-import gg.acai.chatgpt.exception.ExceptionParser;
+import gg.acai.chatgpt.okhttp.EventSourceHandler;
 import gg.acai.chatgpt.request.ChatGPTRequest;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
+import okhttp3.sse.EventSources;
 
-import java.io.IOException;
-import java.util.Objects;
 import java.util.UUID;
 
 /**
- * A conversation extension which retrieves the response.
- * 
+ A conversation extension which uses the stream endpoint.
+ *
  * @author Clouke
- * @since 09.12.2022 18:04
+ * @since 11.12.2022 03:02
  */
-public class AbstractConversation implements Conversation {
+public class AbstractStreamConversation implements Conversation {
 
     private static final MediaType JSON = MediaType.get("application/json");
 
     private final UUID uuid;
+    private final EventSourceHandler handler;
     private final OkHttpClient client;
-    private final ExceptionParser parser;
 
-    public AbstractConversation(OkHttpClient client, UUID uuid, ExceptionParser parser) {
+    public AbstractStreamConversation(OkHttpClient client, UUID uuid, StreamResponseListener listener) {
         this.client = client;
         this.uuid = uuid;
-        this.parser = parser;
+        this.handler = new EventSourceHandler();
+        this.handler.setListener(listener);
     }
 
     @Override
@@ -65,31 +64,15 @@ public class AbstractConversation implements Conversation {
                 .post(b)
                 .build();
 
-        okhttp3.Response res;
-        try {
-            res = client.newCall(req).execute();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        ResponseBody body = res.body();
-        return () -> {
-            try {
-                Objects.requireNonNull(body, "Response body is null");
-                String string = body.string();
-                this.parser.read(string);
-                return string;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        };
+        EventSources.createFactory(client).newEventSource(req, handler);
+        return null;
     }
-
 
     @Override
     public AsyncPlaceholder<Response> sendMessageAsync(String... messages) {
         return Schedulers.supplyAsync(() -> this.sendMessage(messages));
     }
+
     @Override
     public AsyncPlaceholder<Response> sendMessageAsync(ChatGPTRequest request) {
         return Schedulers.supplyAsync(() -> sendMessage(request));
