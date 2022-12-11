@@ -47,6 +47,11 @@ public final class ChatGPTAPI implements ChatGPT {
     }
 
     @Override
+    public Conversation createStreamConversation(StreamResponseListener listener) {
+        return new AbstractStreamConversation(this.client, UUID.randomUUID(), listener);
+    }
+
+    @Override
     public String getSessionToken() {
         return this.sessionToken;
     }
