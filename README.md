@@ -79,12 +79,12 @@ streamConversation.sendMessageAsync("Hello!"); // does not support promise callb
 * Optimal performance
 
 ## Important Notes
-Due to the fact that this is developed using the unofficial reverse-engineered API, be aware that it could break at any time.
+Because this is developed using the unofficial reverse-engineered API, be aware that it could break at any time.
 However, we will work to fix any issues as they may arise.
 
 ## Contributing
 Contributions are highly appreciated! If you feel your pull request is useful, go ahead!
-Before creating a pull request, make sure your changes works as it should and give a description on what it provides.
+Before creating a pull request, make sure your changes work as they should and give a description of what it provides.
 
 ## Authors
 [Kaiser](https://github.com/KaiserBloo)
