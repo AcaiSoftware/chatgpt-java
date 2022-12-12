@@ -2,6 +2,13 @@
 # ChatGPT-Java
 A **Java** wrapper for the unofficial reverse-engineered [ChatGPT](https://chat.openai.com/) API.
 
+## Important Update
+OpenAI have recently implemented Cloudflare's Under Attack mode on ChatGPT, meaning you will need to supply a valid Cloudflare cookie and user agent to use the API.
+
+This may be temporary, however we do not know at the moment.
+
+Refer to the [Registering ChatGPT](https://github.com/AcaiSoftware/chatgpt-java#registering-chatgpt) section for more information on how to set these values.
+
 ## Add ChatGPT-Java to your own build
 ### Maven
 ```xml
@@ -13,7 +20,7 @@ A **Java** wrapper for the unofficial reverse-engineered [ChatGPT](https://chat.
 <dependency>
   <groupId>gg.acai</groupId>
   <artifactId>chatgpt-java</artifactId>
-  <version>1.0</version>
+  <version>1.0.2</version>
 </dependency>
 ```
 
@@ -22,7 +29,9 @@ A **Java** wrapper for the unofficial reverse-engineered [ChatGPT](https://chat.
 All builder fields are optional except for ``sessionToken``.
 ```java
 ChatGPT chatGpt = ChatGPT.newBuilder()
-  .sessionToken("token_here") // required field
+  .sessionToken("token_here") // required field: get from cookies
+  .cfClearance("cf_clearance_here") // required to bypass Cloudflare: get from cookies
+  .userAgent("user_agent_here") // required to bypass Cloudflare: google 'what is my user agent'
   .addExceptionAttribute(new ParsedExceptionEntry("exception keyword", Exception.class)) // optional: adds an exception attribute
   .connectTimeout(60L) // optional: specify custom connection timeout limit
   .readTimeout(30L) // optional: specify custom read timeout limit
@@ -79,12 +88,12 @@ streamConversation.sendMessageAsync("Hello!"); // does not support promise callb
 * Optimal performance
 
 ## Important Notes
-Due to the fact that this is developed using the unofficial reverse-engineered API, be aware that it could break at any time.
+Because this is developed using the unofficial reverse-engineered API, be aware that it could break at any time.
 However, we will work to fix any issues as they may arise.
 
 ## Contributing
 Contributions are highly appreciated! If you feel your pull request is useful, go ahead!
-Before creating a pull request, make sure your changes works as it should and give a description on what it provides.
+Before creating a pull request, make sure your changes work as they should and give a description of what it provides.
 
 ## Authors
 [Kaiser](https://github.com/KaiserBloo)

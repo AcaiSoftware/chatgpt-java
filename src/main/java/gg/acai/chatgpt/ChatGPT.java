@@ -84,4 +84,5 @@ public interface ChatGPT {
      */
     ExceptionParser getExceptionParser();
 
+    String getUserAgent();
 }

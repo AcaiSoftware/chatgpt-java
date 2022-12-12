@@ -62,7 +62,7 @@ public class AbstractConversation implements Conversation {
         Request req = new okhttp3.Request.Builder()
                 .header("Authorization", "Bearer " + gpt.getAccessToken())
                 .header("Accept", "text/event-stream")
-                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36")
+                .header("User-Agent", gpt.getUserAgent())
                 .header("Cookie", "cf_clearance=" + gpt.getCfClearance())
                 .url(APIUrls.CONVERSATION_URL.getUrl())
                 .post(b)
