@@ -57,7 +57,7 @@ Create a conversation with a promise completing the response:
 Conversation conversation = chatGpt.createConversation();
 conversation.sendMessageAsync("Hello!")
     .whenComplete((response) -> { // called when the promise is completed with its response
-        System.out.println("Response: " + response);
+        System.out.println("Response: " + response.getMessage());
     });
 ```
 
