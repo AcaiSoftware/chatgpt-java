@@ -9,6 +9,8 @@ package gg.acai.chatgpt;
  */
 public abstract class StreamResponseListener {
 
+    private Conversation conversation;
+
     /**
      * Called when a response is received from the stream
      *
@@ -21,7 +23,11 @@ public abstract class StreamResponseListener {
      *
      * @param finalResponse The last response received from the stream
      */
-    public void onFinish(StreamResponse finalResponse) {}
+    public void onFinish(StreamResponse finalResponse) {
+        if (conversation != null) {
+            conversation.setConversationId(finalResponse.getConversationId());
+        }
+    }
 
     /**
      * Called when the stream is closed
@@ -35,5 +41,10 @@ public abstract class StreamResponseListener {
      * @param ignored If the error was ignored
      */
     public void onFailure(Throwable throwable, boolean ignored) {}
+
+    public StreamResponseListener bind(Conversation conversation) {
+        this.conversation = conversation;
+        return this;
+    }
 
 }

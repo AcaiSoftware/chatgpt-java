@@ -23,4 +23,8 @@ public class ResponseEntity {
         return message;
     }
 
+    public String getConversationId() {
+        return conversation_id;
+    }
+
 }

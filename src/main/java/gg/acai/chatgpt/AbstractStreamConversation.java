@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import gg.acai.acava.scheduler.AsyncPlaceholder;
 import gg.acai.acava.scheduler.Schedulers;
+import gg.acai.chatgpt.exception.ExceptionParser;
 import gg.acai.chatgpt.okhttp.EventSourceHandler;
 import gg.acai.chatgpt.request.ChatGPTRequest;
 import okhttp3.MediaType;
@@ -23,16 +24,20 @@ import java.util.UUID;
 public class AbstractStreamConversation implements Conversation {
 
     private static final MediaType JSON = MediaType.get("application/json");
-
     private final UUID uuid;
     private final EventSourceHandler handler;
     private final OkHttpClient client;
+    private String conversationId;
+    private final ExceptionParser parser;
 
-    public AbstractStreamConversation(OkHttpClient client, UUID uuid, StreamResponseListener listener) {
+
+    public AbstractStreamConversation(OkHttpClient client, UUID uuid, StreamResponseListener listener, ExceptionParser parser) {
         this.client = client;
         this.uuid = uuid;
         this.handler = new EventSourceHandler();
         this.handler.setListener(listener);
+        this.conversationId = null;
+        this.parser = parser;
     }
 
     @Override
@@ -46,7 +51,7 @@ public class AbstractStreamConversation implements Conversation {
 
     @Override
     public Response sendMessage(ChatGPTRequest request) {
-        request.setConversationId(uuid);
+        request.setConversationId(conversationId);
         ObjectMapper mapper = new ObjectMapper();
 
         RequestBody b;
@@ -56,10 +61,12 @@ public class AbstractStreamConversation implements Conversation {
             throw new RuntimeException(e);
         }
 
+        ChatGPT gpt = ChatGPTAPI.getInstance();
         Request req = new okhttp3.Request.Builder()
-                .header("Authorization", "Bearer " + ChatGPTAPI.getInstance().getAccessToken())
+                .header("Authorization", "Bearer " + gpt.getAccessToken())
                 .header("Accept", "text/event-stream")
-                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36")
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36")
+                .header("Cookie", "cf_clearance=" + gpt.getCfClearance())
                 .url(APIUrls.CONVERSATION_URL.getUrl())
                 .post(b)
                 .build();
@@ -76,6 +83,12 @@ public class AbstractStreamConversation implements Conversation {
     @Override
     public AsyncPlaceholder<Response> sendMessageAsync(ChatGPTRequest request) {
         return Schedulers.supplyAsync(() -> sendMessage(request));
+    }
+
+    @Override
+    public Conversation setConversationId(String id) {
+        this.conversationId = id;
+        return this;
     }
 
 }

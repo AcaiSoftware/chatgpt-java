@@ -45,8 +45,18 @@ public class EventSourceHandler extends EventSourceListener {
                     .getContent()
                     .getParts()
                     .forEach(buffer::append);
+            StreamResponse resp = new StreamResponse() {
+                @Override
+                public String getMessage() {
+                    return buffer.toString();
+                }
 
-            StreamResponse resp = buffer::toString;
+                @Override
+                public String getConversationId() {
+                    return eventResp.getConversationId();
+                }
+            };
+
             if (listener != null) {
                 listener.onResponse(resp);
             }

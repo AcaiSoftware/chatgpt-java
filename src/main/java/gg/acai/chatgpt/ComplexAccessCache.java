@@ -59,8 +59,8 @@ public class ComplexAccessCache {
 
             ObjectMapper mapper = new ObjectMapper();
             Request req = new okhttp3.Request.Builder()
-                    .header("Cookie", "__Secure-next-auth.session-token=" + this.sessionToken)
-                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36")
+                    .header("Cookie", "cf_clearance=" + ChatGPTAPI.getInstance().getCfClearance() + ";__Secure-next-auth.session-token=" + this.sessionToken)
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36")
                     .url(APIUrls.REFRESH_TOKEN_URL.getUrl())
                     .get()
                     .build();
