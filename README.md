@@ -3,7 +3,7 @@
 A **Java** wrapper for the unofficial reverse-engineered [ChatGPT](https://chat.openai.com/) API.
 
 ## Important Update
-OpenAI have recently implemented Cloudflare's Under Attack mode on ChatGPT, meaning you will need to supply a valid Cloudflare cookie and user agent to use the API.
+OpenAI have recently implemented Cloudflare's Under Attack mode on ChatGPT, meaning you will need to supply a valid `cf_clearance` cookie and user agent to use the API.
 
 This may be temporary, however we do not know at the moment.
 
