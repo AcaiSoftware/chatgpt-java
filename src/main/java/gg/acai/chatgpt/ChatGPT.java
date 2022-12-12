@@ -47,6 +47,11 @@ public interface ChatGPT {
      */
     String getSessionToken();
 
+    /**
+     * Gets the Cloudflare clearance token
+     *
+     * @return Returns the Cloudflare clearance token
+     */
     String getCfClearance();
 
     /**

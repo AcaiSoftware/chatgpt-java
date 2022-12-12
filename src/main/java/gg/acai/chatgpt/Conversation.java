@@ -50,6 +50,12 @@ public interface Conversation {
      */
     AsyncPlaceholder<Response> sendMessageAsync(ChatGPTRequest request) throws URISyntaxException, JsonProcessingException;
 
+    /**
+     * Sets the conversation id of this conversation.
+     *
+     * @param id The conversation id
+     * @return Returns this conversation
+     */
     Conversation setConversationId(String id);
 
 }
