@@ -6,7 +6,6 @@ package gg.acai.chatgpt;
  * @author Clouke
  * @since 10.12.2022 19:44
  */
-@FunctionalInterface
 public interface StreamResponse {
 
     /**
@@ -16,4 +15,11 @@ public interface StreamResponse {
      */
     String getMessage();
 
+    /**
+     * Gets the conversationId of the response
+     *
+     * @return Returns the conversationId
+     */
+
+    String getConversationId();
 }

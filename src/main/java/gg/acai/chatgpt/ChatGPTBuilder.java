@@ -21,6 +21,7 @@ public class ChatGPTBuilder {
     private long readTimeout;
     private long connectTimeout;
     private long writeTimeout;
+    private String cfClearance;
 
     /**
      * Specifies the session token of the ChatGPT API
@@ -30,6 +31,11 @@ public class ChatGPTBuilder {
      */
     public ChatGPTBuilder sessionToken(String sessionToken) {
         this.sessionToken = sessionToken;
+        return this;
+    }
+
+    public ChatGPTBuilder cfClearance(String cfClearance) {
+        this.cfClearance = cfClearance;
         return this;
     }
 
@@ -90,19 +96,21 @@ public class ChatGPTBuilder {
         return this;
     }
 
+
     /**
      * Builds the ChatGPT API
      * @return Returns the ChatGPT API
      */
     public ChatGPT build() {
         doBuildProcedure();
-        ChatGPTAPI api = new ChatGPTAPI(sessionToken, eventBus, exceptionAttributes, connectTimeout, readTimeout, writeTimeout);
+        ChatGPTAPI api = new ChatGPTAPI(sessionToken, cfClearance, eventBus, exceptionAttributes, connectTimeout, readTimeout, writeTimeout);
         api.getComplexAccessCache().refreshAccessToken();
         return api;
     }
 
     private void doBuildProcedure() {
         Requisites.requireNonNull(sessionToken, "Session token cannot be null");
+        Requisites.requireNonNull(cfClearance, "cfClearance cannot be null");
         if (connectTimeout == 0) connectTimeout = 60;
         if (readTimeout == 0) readTimeout = 30;
         if (writeTimeout == 0) writeTimeout = 30;

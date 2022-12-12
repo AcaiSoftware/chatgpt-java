@@ -29,6 +29,7 @@ public class AbstractConversation implements Conversation {
     private final UUID uuid;
     private final OkHttpClient client;
     private final ExceptionParser parser;
+    private String conversationId;
 
     public AbstractConversation(OkHttpClient client, UUID uuid, ExceptionParser parser) {
         this.client = client;
@@ -47,7 +48,7 @@ public class AbstractConversation implements Conversation {
 
     @Override
     public Response sendMessage(ChatGPTRequest request) {
-        request.setConversationId(uuid);
+        request.setConversationId(conversationId);
         ObjectMapper mapper = new ObjectMapper();
 
         RequestBody b;
@@ -57,10 +58,12 @@ public class AbstractConversation implements Conversation {
             throw new RuntimeException(e);
         }
 
+        ChatGPT gpt = ChatGPTAPI.getInstance();
         Request req = new okhttp3.Request.Builder()
-                .header("Authorization", "Bearer " + ChatGPTAPI.getInstance().getAccessToken())
+                .header("Authorization", "Bearer " + gpt.getAccessToken())
                 .header("Accept", "text/event-stream")
-                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36")
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36")
+                .header("Cookie", "cf_clearance=" + gpt.getCfClearance())
                 .url(APIUrls.CONVERSATION_URL.getUrl())
                 .post(b)
                 .build();
@@ -93,6 +96,12 @@ public class AbstractConversation implements Conversation {
     @Override
     public AsyncPlaceholder<Response> sendMessageAsync(ChatGPTRequest request) {
         return Schedulers.supplyAsync(() -> sendMessage(request));
+    }
+
+    @Override
+    public Conversation setConversationId(String id) {
+        this.conversationId = id;
+        return this;
     }
 
 }

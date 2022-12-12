@@ -80,10 +80,10 @@ public class ChatGPTRequest {
     /**
      * Sets the conversation ID for this request.
      *
-     * @param uuid The UUID to set as the conversation ID
+     * @param id The UUID to set as the conversation ID
      */
-    public void setConversationId(UUID uuid) {
-        this.conversation_id = uuid.toString();
+    public void setConversationId(String id) {
+        this.conversation_id = id;
     }
 
 

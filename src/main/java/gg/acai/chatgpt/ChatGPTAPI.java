@@ -24,8 +24,8 @@ public final class ChatGPTAPI implements ChatGPT {
     private final ComplexAccessCache accessTokenCache;
     private final OkHttpClient client;
     private final ExceptionParser exceptionParser;
-
-    public ChatGPTAPI(String sessionToken, EventBus eventBus, List<ParsedExceptionEntry> entries, long connectTimeout, long readTimeout, long writeTimeout) {
+    private final String cfClearance;
+    public ChatGPTAPI(String sessionToken, String cfClearance, EventBus eventBus, List<ParsedExceptionEntry> entries, long connectTimeout, long readTimeout, long writeTimeout) {
         instance = this;
 
         this.client = new OkHttpClient.Builder()
@@ -39,6 +39,7 @@ public final class ChatGPTAPI implements ChatGPT {
         this.accessTokenCache = new ComplexAccessCache(this);
         this.exceptionParser = new ExceptionParser();
         this.exceptionParser.register(entries);
+        this.cfClearance = cfClearance;
     }
 
     @Override
@@ -48,12 +49,17 @@ public final class ChatGPTAPI implements ChatGPT {
 
     @Override
     public Conversation createStreamConversation(StreamResponseListener listener) {
-        return new AbstractStreamConversation(this.client, UUID.randomUUID(), listener);
+        return new AbstractStreamConversation(this.client, UUID.randomUUID(), listener, this.exceptionParser);
     }
 
     @Override
     public String getSessionToken() {
         return this.sessionToken;
+    }
+
+    @Override
+    public String getCfClearance() {
+        return this.cfClearance;
     }
 
     @Override

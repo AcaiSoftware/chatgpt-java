@@ -47,6 +47,8 @@ public interface ChatGPT {
      */
     String getSessionToken();
 
+    String getCfClearance();
+
     /**
      * Returns the access token
      *
