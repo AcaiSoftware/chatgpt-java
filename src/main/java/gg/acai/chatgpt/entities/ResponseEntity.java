@@ -23,6 +23,11 @@ public class ResponseEntity {
         return message;
     }
 
+    /**
+     * Gets the conversation id of this response.
+     *
+     * @return The conversation id of this response
+     */
     public String getConversationId() {
         return conversation_id;
     }
