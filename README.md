@@ -24,9 +24,24 @@ Refer to the [Registering ChatGPT](https://github.com/AcaiSoftware/chatgpt-java#
 </dependency>
 ```
 
+### Gradle
+
+```gradle
+repositories {
+    maven {
+        url "https://raw.github.com/AcaiSoftware/chatgpt-java/repository/"
+    }
+}
+
+dependencies {
+    implementation 'gg.acai:chatgpt-java:1.0.2'
+}
+```
+
 ## Usage Examples
 ### Registering ChatGPT
-All builder fields are optional except for ``sessionToken``.
+All builder fields are optional except for ``sessionToken``.  
+Recource to access sesion token [ChatGPT Cookies Chrome Extension](https://chrome.google.com/webstore/detail/chatgpt-cookies/nnkcnhbioochcaoeofflcljhhpceoknl/related).   
 ```java
 ChatGPT chatGpt = ChatGPT.newBuilder()
   .sessionToken("token_here") // required field: get from cookies
